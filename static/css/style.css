@@ -1,0 +1,229 @@
+*
+{
+  margin:0px 0px 0px 0px;
+}
+/*headers*/
+header{
+    width: 174px;
+    color: rgba(255,122,0,1);
+    position:relative;
+    top: 10px;
+    left: 20px;
+    height: 25px;
+    font-family: Oxanium;
+    font-weight: Bold;
+    font-size: 36px;
+    text-align: left;
+  }
+/*headers*/
+.root {
+  top: 30px;
+  background: rgba(255,255,255,1);
+  position: relative;
+  font-family: Montserrat;
+}
+/*Navigation Bar*/
+.NavigateBar
+{
+  background-color:rgba(214, 209, 205, 0.384);
+  width: 100%;
+  height: 45px;
+  left: 0px;
+}
+.linkName
+{
+  line-height: 45px;
+  width: 12px;
+  margin-left: 20px;
+  margin-right: 15px;
+  position: relative; 
+  text-align: center;
+  color: rgba(0,0,0,1); 
+  font-weight:600px;
+  font-size: 16px;
+}
+/*-----------------------------------Dash Broad ----------------------------------*/
+/* cards area split and text css*/
+.TopCards
+{
+  margin-top:10px;
+  margin-left:10px;
+  margin-right:10px;
+  width: 100%;
+}
+.BottomCards
+{
+  margin-top: 310px;
+  margin-left:10px;
+  margin-right:10px;
+  width: 100%;
+}
+.ClassTitle
+{
+  margin: 1%;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 3px 2px 3px;
+}
+.SubTitle
+{
+  margin: 5%;
+  font-size: 12px;
+  color:rgb(100, 82, 67); 
+  margin: 3px 3px 0.5px 3px;
+}
+/*weely progress*/
+.WeeklyProgress
+{
+  margin-left:0.5%;
+  width: 22%;
+  height: 280px;
+  position: relative;
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+/*Create New Card*/
+*.Card
+{
+  margin-left:2%;
+  width: 22%;
+  height: 280px;
+  position: relative;
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+/* Upconing Task*/
+.RecentTask
+{
+  margin:10px auto;
+  width: 90%;
+  height: 50px;
+}
+hr
+{
+  margin:auto;
+  width:93% ;
+}
+/* New Issue*/
+.InputIssue
+{
+  height: 80px;
+  width: 93%;
+  position: relative;
+  border-style:ridge;
+  margin: 1% 2% 1% 2%;
+}
+.InputDue
+{
+  height: 20px;
+  width: 93%;
+  position: relative;
+  border-style:ridge;
+  margin: 1% 2% 5% 2%;
+}
+.InputTags
+{
+  height: 20px;
+  width: 93%;
+  position: relative;
+  border-style:ridge;
+  margin: 1% 2% 1% 2%;
+}
+/*Indexs Revenue*/
+.IndexRevenue
+{ 
+  margin-left:0.3%;
+  width: 58%;
+  height: 350px;
+  position: relative;
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+.Revenue
+{
+  margin:10px auto;
+  width: 95%;
+  height: 230px;
+}
+.Indexinfo
+{
+  margin:10px auto;
+  width: 95%;
+  height: 60px;
+}
+/*Recent dNews*/
+.RecentNews
+{
+  margin-left:1%;
+  width: 36%;
+  height: 350px;
+  position: relative;
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+.News
+{
+  margin:10px auto;
+  width: 90%;
+  height: 80px;
+}
+
+/*-----------------------------------Info----------------------------------*/
+.Infos
+{
+  margin-top:10px;
+  margin-left:10px;
+  margin-right:10px;
+  width: 100%;
+}
+/*all news*/
+.allIndexRevenue
+{
+  margin-left:1%;
+  width: 60%;
+  height: 100%;
+  position: relative;
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+.Security
+{
+  margin:10px auto;
+  width: 95%;
+  height: 280px;
+}
+.Newslist
+{
+  margin-left:1%;
+  width: 35%;
+  height: 100%;
+  position: relative; 
+  border:1px solid rgba(128, 96, 71, 0.863);
+  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
+  float:left;
+}
+.FullNews
+{
+  margin:10px auto;
+  width: 95%;
+  height: 130px;
+}
+.NewsTitle
+{
+  margin: 1%;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 3px 2px 3px;
+}
+.NewsContent
+{
+  margin: 1%;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 5px 3px 2px 3px;
+}
