@@ -21,5 +21,7 @@ Once users have set their area of interest or financial sector, we will crawl re
 
 ## 3. Individual contribution and roles
 1) UI/UX realizazion: 
-Zhuo Yixuan: Page of Dashbroad & Financial Information 
+
+Zhuo Yixuan: Page of Dashbroad & Financial Information
+
 Ma xiaodi: Page of Calendar
