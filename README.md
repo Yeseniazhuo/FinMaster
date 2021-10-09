@@ -10,7 +10,7 @@ We refined the design of the web functionality (attached in the appendix), speci
 
 Currently, we complete all static user interfaces with html and CSS, and we have also reserved excuses for back-end interaction. We subsequently intend to complete the backend programming using python, django  framework, and we searched for some date libraries that would allow us to modify the calendar template. Besides, we also find out some available API for the news and securities information.
 
-## 3. References: List of features
+## Appendix: List of features
 
 ### A. Task Progress Statisitc
 Users can see the progress of their tasks on the dashboard to optimize their task settings.
