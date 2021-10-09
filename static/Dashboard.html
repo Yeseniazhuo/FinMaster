@@ -6,22 +6,31 @@
     <link href="https://fonts.googleapis.com/css?family=Oxanium&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
-    <meta name="Deshbroad" content="width=device-width, initial-scale=1.0">
+    <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href='./css/style.css' />
-    <title>FinMaster Deshbroad</title>
+
+    <!-- Font icons -->
+    <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
+
+    <title>FinMaster Dashboard</title>
 </head>
-<header>FinMaster</header>
 <body>
+    <div class="Header">
+        <header>FinMaster</header>
+        <i class="far fa-bell" id="bell-icon"></i>
+        <i class="fas fa-cog" id="cog-icon"></i>
+        <i class="fas fa-user-circle" id="user-icon"></i>
+    </div>
     <div class='root'>
         <!--Navigate Bar-->
         <div class='NavigateBar'>
-            <a href="Dashbroad.html" class="linkName"><strong>Dashboard</strong></a>
-            <a class="linkName">Calendar</a>
+            <a href="Dashboard.html" class="linkName"><strong>Dashboard</strong></a>
+            <a href="Calendar.html" class="linkName">Calendar</a>
             <a href="FinancialInfo.html" class="linkName">Financial Information</a>
         </div>
         <div class="TopCards">
             <!--Weekly Progress-->
-            <div class='WeeklyProgress'>
+            <div class='Card'>
                 <p class='ClassTitle'>Weekly Progress</p>
                 <p class='SubTitle'>{{Start Time}}</p>
             </div>
