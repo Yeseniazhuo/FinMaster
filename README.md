@@ -4,7 +4,13 @@
 ## 1. Overall
 Currently available task planners, like kanban are for the general population, while we would like to develop a task planner specially for investors in the financial industry. It is convenient both for individual and group teams to set tasks, view latest financial news, allocate projects, compare performance, etc.
 
-## 2. List of features
+## 2. Midterm Progress
+
+We refined the design of the web functionality (attached in the appendix), specifying the future  functions to be completed. 
+
+Currently, we complete all static user interfaces with html and CSS, and we have also reserved excuses for back-end interaction. We subsequently intend to complete the backend programming using python, django  framework, and we searched for some date libraries that would allow us to modify the calendar template. Besides, we also find out some available API for the news and securities information.
+
+## 3. References: List of features
 
 ### A. Task Progress Statisitc
 Users can see the progress of their tasks on the dashboard to optimize their task settings.
@@ -19,9 +25,4 @@ Once users have setted the securities or industry they are interest in, we will 
 Once users have set their area of interest or financial sector, we will crawl related news released in some mainstream financial websites for their reference. They can also choose to set alerts for future events mentioned in the news. It can shorten the users’ search time.
 
 
-## 3. Individual contribution and roles
-1) UI/UX realizazion: 
-
-Zhuo Yixuan: Page of Dashbroad & Financial Information
-
-Ma xiaodi: Page of Calendar
+## 
