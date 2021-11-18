@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Oxanium&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href='./css/style.css' />
+
+    <!-- Font icons -->
+    <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
+
+    <title>FinMaster Dashboard</title>
+</head>
+<body>
+    <div class="Header">
+        <header>FinMaster</header>
+        <i class="far fa-bell" id="bell-icon"></i>
+        <i class="fas fa-cog" id="cog-icon"></i>
+        <i class="fas fa-user-circle" id="user-icon"></i>
+    </div>
+
+    <div class='root'>
+        <!--Navigate Bar-->
+        <div class='NavigateBar'>
+            <a href="Dashboard.html" class="linkName"><strong>Dashboard</strong></a>
+            <a href="Calendar.html" class="linkName">Calendar</a>
+
+            <a href="FinancialInfo.html" class="linkName">Financial Information</a>
+        </div>
+        <div class="TopCards">
+            <!--Weekly Progress-->
+            <div class='Card'>
+
+                <p class='ClassTitle'>Weekly Progress</p>
+                <p class='SubTitle'>{{Start Time}}</p>
+            </div>
+            <!--Upcoming Tasks-->            
+            <div class='Card'>
+                <p class='ClassTitle'>Upcoming Tasks</p>
+                <div class='RecentTask'>Task 1</div>
+                <hr/>
+                <div class='RecentTask'>Task 2</div>
+                <hr/>
+                <div class='RecentTask'>Task 3</div>
+            </div>
+            <!--Issue Creating-->                        
+            <div class='Card'>
+                <p class='ClassTitle'>Create A New Issue</p>
+                <p class='SubTitle'>Input to create a issue:</p>
+                <form>
+                    <textarea class="InputIssue" type = "text" 
+                    name="newIssue" placeholder='What is the task?'></textarea>
+                    <p class='SubTitle'>Due date:</p>
+                    <input class="InputDue" type = "datetime-local" name="newIssueDue"></textarea>
+                    <p class='SubTitle'>Tags:</p>
+                    <textarea  class="InputTags" type = "text" 
+                    name="newIssueDue" placeholder='Tags'></textarea>
+                </form>
+            </div>
+            <!--Small Calendar-->                        
+            <div class='Card'>
+                <p class='ClassTitle'>OCT.</p>
+            </div>
+        </div>
+        <div class="BottomCards">
+            <!--Index Revenue-->
+            <div class='IndexRevenue'>
+                <p class='ClassTitle'>{{Selected Index}} Revenue</p>
+                <div class='Revenue'>stock 1</div>
+                <div class='Indexinfo'>{{Today's price}}</div>
+            </div>
+            <!--recent News-->            
+            <div class='RecentNews'>
+                <a href="FinancialInfo.html"><p class='ClassTitle'>Recent News</p></a>
+                <div class='News'>News 1</div>
+                <hr/>
+                <div class='News'>News 2</div>
+                <hr/>
+                <div class='News'>News 3</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
