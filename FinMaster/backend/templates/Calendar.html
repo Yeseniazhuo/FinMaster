@@ -7,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
     <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='./css/style.css' />
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
@@ -24,9 +26,9 @@
     </div>
     <div class="root">
         <div class="NavigateBar">
-            <a href="Dashboard.html" class="linkName">Dashboard</a>
-            <a href="Calendar.html" class="linkName"><strong>Calendar</strong></a>
-            <a href="FinancialInfo.html" class="linkName">Financial Information</a>
+            <a href="/" class="linkName">Dashboard</a>
+            <a href="{% url 'calendar' %}" class="linkName"><strong>Calendar</strong></a>
+            <a href="{% url 'info' %}" class="linkName">Financial Information</a>
         </div>
 
         <div class="calendar-container">

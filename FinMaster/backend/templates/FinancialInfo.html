@@ -7,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
     <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='./css/style.css' />
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
@@ -25,10 +27,9 @@
     <div class='root'>
         <!--Navigate Bar-->
         <div class='NavigateBar'>
-            <a href="Dashboard.html" class="linkName">Dashboard</a>
-            <a href="Calendar.html" class="linkName">Calendar</a>
-
-            <a href="FinancialInfo.html" class="linkName"><strong>Financial Information</strong></a>
+            <a href="/" class="linkName">Dashboard</a>
+            <a href="{% url 'calendar' %}" class="linkName">Calendar</a>
+            <a href="{% url 'info' %}" class="linkName"><strong>Financial Information</strong></a>
         </div>
 
         <div class="Infos">
@@ -51,33 +52,33 @@
             <div class='Newslist'>
                 <p class='ClassTitle'>Recent News</p>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_1}}</P>
+                    <P class='NewsContent'>{{news_content_1}}</P>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_2}}</P>
+                    <P class='NewsContent'>{{news_content_2}}</P>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_3}}</P>
+                    <P class='NewsContent'>{{news_content_3}}</P>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_4}}</P>
+                    <P class='NewsContent'>{{news_content_4}}</P>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_5}}</P>
+                    <P class='NewsContent'>{{news_content_5}}</P>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>News</P>
-                    <P class='NewsContent'>Content</P>
+                    <P class='NewsTitle'>{{news_title_6}}</P>
+                    <P class='NewsContent'>{{news_content_6}}</P>
                 </div>
             </div>
         </div>

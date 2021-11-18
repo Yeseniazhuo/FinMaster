@@ -7,10 +7,20 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
     <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='./css/style.css' />
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
+
+    <!-- bokeh plot -->
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.1.min.js"></script>
 
     <title>FinMaster Dashboard</title>
 </head>
@@ -25,17 +35,16 @@
     <div class='root'>
         <!--Navigate Bar-->
         <div class='NavigateBar'>
-            <a href="Dashboard.html" class="linkName"><strong>Dashboard</strong></a>
-            <a href="Calendar.html" class="linkName">Calendar</a>
-
-            <a href="FinancialInfo.html" class="linkName">Financial Information</a>
+            <a href="/" class="linkName"><strong>Dashboard</strong></a>
+            <a href="{% url 'calendar' %}" class="linkName">Calendar</a>
+            <a href="{% url 'info' %}" class="linkName">Financial Information</a>
         </div>
         <div class="TopCards">
             <!--Weekly Progress-->
             <div class='Card'>
 
                 <p class='ClassTitle'>Weekly Progress</p>
-                <p class='SubTitle'>{{Start Time}}</p>
+                <p class='SubTitle'>{{start_time}}</p>
             </div>
             <!--Upcoming Tasks-->            
             <div class='Card'>
@@ -62,27 +71,48 @@
             </div>
             <!--Small Calendar-->                        
             <div class='Card'>
-                <p class='ClassTitle'>OCT.</p>
+                <p class='ClassTitle'>{{this_month}}</p>
+                <div class='SmallCalendar'>
+                    {{calendar}}
+                </div>
             </div>
         </div>
         <div class="BottomCards">
             <!--Index Revenue-->
             <div class='IndexRevenue'>
-                <p class='ClassTitle'>{{Selected Index}} Revenue</p>
-                <div class='Revenue'>stock 1</div>
-                <div class='Indexinfo'>{{Today's price}}</div>
+                <p class='ClassTitle'>Selected Index Revenue</p>
+                <div class='Revenue'>
+                    <p>{{selected_symbol}}</p>
+                    <!--Historical price plot-->
+                    {{ div | safe }}
+                </div>
+                <div class='Indexinfo'>
+                    <p>Latest price</p>
+                    <h4>Last high: {{last_high}} &nbsp &nbsp &nbsp &nbsp Last close: {{last_close}}</h4>
+                </div>
             </div>
             <!--recent News-->            
             <div class='RecentNews'>
-                <a href="FinancialInfo.html"><p class='ClassTitle'>Recent News</p></a>
-                <div class='News'>News 1</div>
+                <a href="{% url 'info' %}"><p class='ClassTitle'>Recent News</p></a>
+                <div class='News'>
+                    <h4 style="text-align: left;">{{news_title_1}}</h4>
+                    <p class='NewsContent'>{{news_content_1}}</p>
+                </div>
                 <hr/>
-                <div class='News'>News 2</div>
+                <div class='News'>
+                    <h4 style="text-align: left;">{{news_title_2}}</h4>
+                    <p class='NewsContent'>{{news_content_2}}</p>
+                </div>
                 <hr/>
-                <div class='News'>News 3</div>
+                <div class='News'>
+                    <h4 style="text-align: left;">{{news_title_3}}</h4>
+                    <p class='NewsContent'>{{news_content_3}}</p>
+                </div>
             </div>
         </div>
     </div>
+
+    {{ script | safe }}
 </body>
 
 </html>
