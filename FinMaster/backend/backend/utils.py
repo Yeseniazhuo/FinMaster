@@ -16,6 +16,10 @@ def this_month():
     today=date.today()
     return today.strftime('%B')
 
+def this_year():
+    today=date.today()
+    return today.strftime('%Y')
+
 def request_selected_symbol(selected_symbol):
     """
     Return the selected historical price data.
@@ -26,13 +30,27 @@ def request_selected_symbol(selected_symbol):
     data = r.json()
 
     df=pd.DataFrame.from_dict(data['Time Series (Daily)'],orient='index').reset_index()
-    df=df.rename(index=str,columns={'index':'date','1. open': 'open','2. high': 'high', '3. low': 'low','4. close': 'close','5. adjusted close':'adjusted close','6. volume':'volume','7. dividend amount':'dividend amount','8. split coefficient':'split coefficient'})
+    df=df.rename(columns={'index':'date','1. open': 'open','2. high': 'high', '3. low': 'low','4. close': 'close','5. adjusted close':'adjusted close','6. volume':'volume','7. dividend amount':'dividend amount','8. split coefficient':'split coefficient'})
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values(by=['date'])
     df.open = df.open.astype(float)
     df.close = df.close.astype(float)
     df.high = df.high.astype(float)
     df.low = df.low.astype(float)
+
+    return df
+
+def request_selected_sma(selected_symbol):
+    apikey="H1P717SYTFDWWWBK"
+    url = 'https://www.alphavantage.co/query?function=SMA&symbol='+selected_symbol+'&interval=daily&time_period=10&series_type=close&apikey='+apikey
+    r = requests.get(url)
+    data = r.json()
+
+    df=pd.DataFrame.from_dict(data['Technical Analysis: SMA'],orient='index').reset_index()
+    df=df.rename(columns={'index':'date'})
+    df['date'] = pd.to_datetime(df['date'])
+    df = df.sort_values(by=['date'])
+    df.SMA = df.SMA.astype(float)
 
     return df
 

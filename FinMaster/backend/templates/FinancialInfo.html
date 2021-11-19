@@ -14,6 +14,14 @@
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
 
+    <!-- bokeh plot -->
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.1.min.js"></script>
+
     <title>FinMaster Dashboard</title>
 </head>
 
@@ -38,6 +46,7 @@
                 <p class='ClassTitle'>Stock Performance</p>
                 <div class='Security'>
                     <p class='ClassTitle'>{{Security}}</p>
+                    {{div_1 | safe}}
                 </div>
                 <hr/>
                 <div class='Security'>
@@ -82,6 +91,9 @@
                 </div>
             </div>
         </div>
+        {{ script_1 | safe }}
+        {{ script_2 | safe }}
+        {{ script_3 | safe }}
 </body>
 
 </html>
