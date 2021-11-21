@@ -145,8 +145,11 @@ def info_plot_2(selected_symbol):
 
     return
 
+#####################################Request####################################
+
+############################dashboard############################
 def dashboard(request):
-    
+    # render the picture and the news
     selected_symbol='SPY'
     script, div, last_high, last_close=plot_selected(selected_symbol)
 
@@ -170,8 +173,18 @@ def dashboard(request):
         'news_content_3':news_content_3
     }
 
+    #create new issue
+    if request.method == 'GET':
+        if 'InputIssue' in request.GET:
+            NewIssue = request.GET.get('InputIssue')
+        if 'InputDue' in request.GET:
+            NewDue = request.GET.get('InputDue')
+        if 'InputTags' in request.GET:
+            NewTags = request.GET.get('InputTags')
+
     return render(request,'Dashboard.html',context)
 
+############################calendar############################
 def calendar(request):
     context={
         'this_month':this_month(),
