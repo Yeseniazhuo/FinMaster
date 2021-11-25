@@ -10,14 +10,15 @@ from bokeh.models.formatters import NumeralTickFormatter
 
 from .utils import *
 
+
 def plot_selected(selected_symbol):
     """
     Return the bokeh plot of selected symbol.
     """
     df = request_selected_symbol(selected_symbol)
 
-    increasing=df.close > df.open
-    decreasing=df.open > df.close
+    increasing = df.close > df.open
+    decreasing = df.open > df.close
     w = 12 * 60 * 60 * 1000
 
     TOOLS = "pan, wheel_zoom, box_zoom, reset, save"
@@ -29,11 +30,11 @@ def plot_selected(selected_symbol):
     p.segment(df.date, df.high, df.date, df.low, color="black")
 
     p.vbar(df.date[increasing], w, df.open[increasing], df.close[increasing],
-        fill_color="#D5E1DD", line_color="black"
-    )
-    p.vbar(df.date[decreasing], w, df.open[decreasing], df.close[decreasing], 
-        fill_color="#F2583E", line_color="black"
-    )
+           fill_color="#D5E1DD", line_color="black"
+           )
+    p.vbar(df.date[decreasing], w, df.open[decreasing], df.close[decreasing],
+           fill_color="#F2583E", line_color="black"
+           )
 
     script, div = components(p)
 
@@ -42,39 +43,41 @@ def plot_selected(selected_symbol):
 
     return script, div, last_high, last_close
 
+
 def dashboard_news(keyword):
-    news=request_selected_news(keyword)
-    news_title_1=news['articles'][0]['title']
-    news_content_1=news['articles'][0]['description']
-    news_title_2=news['articles'][1]['title']
-    news_content_2=news['articles'][1]['description']
-    news_title_3=news['articles'][2]['title']
-    news_content_3=news['articles'][2]['description']
-    
-    return news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3
+    news = request_selected_news(keyword)
+    news_title_1 = news['articles'][0]['title']
+    news_content_1 = news['articles'][0]['description']
+    news_title_2 = news['articles'][1]['title']
+    news_content_2 = news['articles'][1]['description']
+    news_title_3 = news['articles'][2]['title']
+    news_content_3 = news['articles'][2]['description']
+
+    return news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3
+
 
 def info_news(keyword):
-    news=request_selected_news(keyword)
-    news_title_1=news['articles'][0]['title']
-    news_content_1=news['articles'][0]['description']
-    news_title_2=news['articles'][1]['title']
-    news_content_2=news['articles'][1]['description']
-    news_title_3=news['articles'][2]['title']
-    news_content_3=news['articles'][2]['description']
-    news_title_4=news['articles'][3]['title']
-    news_content_4=news['articles'][3]['description']
-    news_title_5=news['articles'][4]['title']
-    news_content_5=news['articles'][4]['description']
-    news_title_6=news['articles'][5]['title']
-    news_content_6=news['articles'][5]['description']
+    news = request_selected_news(keyword)
+    news_title_1 = news['articles'][0]['title']
+    news_content_1 = news['articles'][0]['description']
+    news_title_2 = news['articles'][1]['title']
+    news_content_2 = news['articles'][1]['description']
+    news_title_3 = news['articles'][2]['title']
+    news_content_3 = news['articles'][2]['description']
+    news_title_4 = news['articles'][3]['title']
+    news_content_4 = news['articles'][3]['description']
+    news_title_5 = news['articles'][4]['title']
+    news_content_5 = news['articles'][4]['description']
+    news_title_6 = news['articles'][5]['title']
+    news_content_6 = news['articles'][5]['description']
 
-    return news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3,news_title_4,news_title_5,news_title_6,news_content_4,news_content_5,news_content_6
+    return news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3, news_title_4, news_title_5, news_title_6, news_content_4, news_content_5, news_content_6
+
 
 def info_plot_1(selected_symbol):
-
     df = request_selected_symbol(selected_symbol)
 
-    stock = ColumnDataSource(data=dict(date=[], open=[], close=[], high=[], low=[],index=[]))
+    stock = ColumnDataSource(data=dict(date=[], open=[], close=[], high=[], low=[], index=[]))
     stock.data = stock.from_df(df)
 
     # Define constants
@@ -101,18 +104,18 @@ def info_plot_1(selected_symbol):
 
     # map dataframe indices to date strings and use as label overrides
     p.xaxis.major_label_overrides = {
-        i+int(stock.data['index'][0]): date.strftime('%b-%d') for i, date in enumerate(pd.to_datetime(stock.data['date']))
+        i + int(stock.data['index'][0]): date.strftime('%b-%d') for i, date in
+        enumerate(pd.to_datetime(stock.data['date']))
     }
     p.xaxis.bounds = (stock.data['index'][0], stock.data['index'][-1])
-
 
     p.segment(x0='index', x1='index', y0='low', y1='high', color=RED, source=stock, view=view_inc)
     p.segment(x0='index', x1='index', y0='low', y1='high', color=GREEN, source=stock, view=view_dec)
 
     p.vbar(x='index', width=VBAR_WIDTH, top='open', bottom='close', fill_color=BLUE, line_color=BLUE,
-           source=stock,view=view_inc, name="price")
+           source=stock, view=view_inc, name="price")
     p.vbar(x='index', width=VBAR_WIDTH, top='open', bottom='close', fill_color=RED, line_color=RED,
-           source=stock,view=view_dec, name="price")
+           source=stock, view=view_dec, name="price")
 
     p.legend.location = "top_left"
     p.legend.border_line_alpha = 0
@@ -122,8 +125,8 @@ def info_plot_1(selected_symbol):
     p.yaxis.formatter = NumeralTickFormatter(format='$ 0,0[.]000')
     p.x_range.range_padding = 0.05
     p.xaxis.ticker.desired_num_ticks = 40
-    p.xaxis.major_label_orientation = 3.14/4
-    
+    p.xaxis.major_label_orientation = 3.14 / 4
+
     # Select specific tool for the plot
     price_hover = p.select(dict(type=HoverTool))
 
@@ -133,47 +136,46 @@ def info_plot_1(selected_symbol):
     price_hover.tooltips = [("Datetime", "@date{%Y-%m-%d}"),
                             ("Open", "@open{$0,0.00}"),
                             ("Close", "@close{$0,0.00}"),
-                           ("Volume", "@volume{($ 0.00 a)}")]
-    price_hover.formatters={"date": 'datetime'}
+                            ("Volume", "@volume{($ 0.00 a)}")]
+    price_hover.formatters = {"date": 'datetime'}
 
-    script, div=components(p)
+    script, div = components(p)
     return script, div
 
+
 def info_plot_2(selected_symbol):
-
-    
-
     return
+
 
 #####################################Request####################################
 
 ############################dashboard############################
 def dashboard(request):
     # render the picture and the news
-    selected_symbol='SPY'
-    script, div, last_high, last_close=plot_selected(selected_symbol)
+    selected_symbol = 'SPY'
+    script, div, last_high, last_close = plot_selected(selected_symbol)
 
-    keyword='Stock'
-    news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3=dashboard_news(keyword)
+    keyword = 'Stock'
+    news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3 = dashboard_news(keyword)
 
-    context={
-        'start_time':this_monday(),
-        'this_month':this_month(),
-        'selected_symbol':selected_symbol,
-        'div':div,
-        'script':script,
-        'last_high':last_high,
-        'last_close':last_close,
-        'calendar':mark_safe(small_calendar()),
-        'news_title_1':news_title_1,
-        'news_content_1':news_content_1,
-        'news_title_2':news_title_2,
-        'news_content_2':news_content_2,
-        'news_title_3':news_title_3,
-        'news_content_3':news_content_3
+    context = {
+        'start_time': this_monday(),
+        'this_month': this_month(),
+        'selected_symbol': selected_symbol,
+        'div': div,
+        'script': script,
+        'last_high': last_high,
+        'last_close': last_close,
+        'calendar': mark_safe(small_calendar()),
+        'news_title_1': news_title_1,
+        'news_content_1': news_content_1,
+        'news_title_2': news_title_2,
+        'news_content_2': news_content_2,
+        'news_title_3': news_title_3,
+        'news_content_3': news_content_3
     }
 
-    #create new issue
+    # create new issue
     if request.method == 'GET':
         if 'InputIssue' in request.GET:
             NewIssue = request.GET.get('InputIssue')
@@ -182,38 +184,40 @@ def dashboard(request):
         if 'InputTags' in request.GET:
             NewTags = request.GET.get('InputTags')
 
-    return render(request,'Dashboard.html',context)
+    return render(request, 'Dashboard.html', context)
+
 
 ############################calendar############################
 def calendar(request):
-    context={
-        'this_month':this_month(),
-        'this_year':this_year(),
+    context = {
+        'this_month': this_month(),
+        'this_year': this_year(),
     }
-    return render(request,'Calendar.html',context)
+    return render(request, 'Calendar.html', context)
+
 
 def info(request):
-    keyword='AAPL AND stock'
+    keyword = 'AAPL AND stock'
 
-    selected_symbol='AAPL'
-    news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3,news_title_4,news_title_5,news_title_6,news_content_4,news_content_5,news_content_6=info_news(keyword)
-    script_1,div_1=info_plot_1(selected_symbol)
+    selected_symbol = 'AAPL'
+    news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3, news_title_4, news_title_5, news_title_6, news_content_4, news_content_5, news_content_6 = info_news(
+        keyword)
+    script_1, div_1 = info_plot_1(selected_symbol)
 
-
-    context={
-        'div_1':div_1,
-        'script_1':script_1,
-        'news_title_1':news_title_1,
-        'news_title_2':news_title_2,
-        'news_title_3':news_title_3,
-        'news_title_4':news_title_4,
-        'news_title_5':news_title_5,
-        'news_title_6':news_title_6,
-        'news_content_1':news_content_1,
-        'news_content_2':news_content_2,
-        'news_content_3':news_content_3,
-        'news_content_4':news_content_4,
-        'news_content_5':news_content_5,
-        'news_content_6':news_content_6
+    context = {
+        'div_1': div_1,
+        'script_1': script_1,
+        'news_title_1': news_title_1,
+        'news_title_2': news_title_2,
+        'news_title_3': news_title_3,
+        'news_title_4': news_title_4,
+        'news_title_5': news_title_5,
+        'news_title_6': news_title_6,
+        'news_content_1': news_content_1,
+        'news_content_2': news_content_2,
+        'news_content_3': news_content_3,
+        'news_content_4': news_content_4,
+        'news_content_5': news_content_5,
+        'news_content_6': news_content_6
     }
-    return render(request,'FinancialInfo.html',context)
+    return render(request, 'FinancialInfo.html', context)
