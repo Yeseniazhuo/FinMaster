@@ -108,7 +108,7 @@ hr
 /* New Issue*/
 .InputIssue
 {
-  height: 80px;
+  height: 70px;
   width: 93%;
   position: relative;
   border-style:ridge;
@@ -129,6 +129,21 @@ hr
   position: relative;
   border-style:ridge;
   margin: 1% 2% 1% 2%;
+}
+.InputButtonDiv
+{
+  text-align: center;
+  height: 10px;
+  width: 93%;
+  position:relative;
+  margin: 4% 2% 1% 2%;
+}
+.InputButton
+{
+  background-color: rgba(214, 209, 205, 0.384);
+  border-style:ridge;
+  width: 100%;
+  border-color:rgba(214, 209, 205, 0.438);
 }
 /*Small Calendar*/
 .SmallCalendar
