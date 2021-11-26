@@ -57,18 +57,18 @@
             </div>
             <!--Issue Creating-->                        
             <div class='Card'>
-                <p class='ClassTitle'>Create A New Issue</p>
-                <p class='SubTitle'>Input to create a issue:</p>
+                <p class='ClassTitle'>Create A New Task</p>
+                <p class='SubTitle'>Input to create a Task:</p>
                 <form>
-                    <textarea class="InputIssue" type = "text" 
-                    name="newIssue" placeholder='What is the task?'></textarea>
+                    <textarea  class="InputTitle" type = "text" 
+                    name="newTaskTitle" placeholder='Task Title'></textarea>
+                    <p class='SubTitle'>Description:</p>
+                    <textarea class="InputDescrip" type = "text" 
+                    name="newTaskDescrip" placeholder='Specify your tasks'></textarea>
                     <p class='SubTitle'>Due date:</p>
                     <input class="InputDue" type = "datetime-local" name="newIssueDue"></textarea>
-                    <p class='SubTitle'>Tags:</p>
-                    <textarea  class="InputTags" type = "text" 
-                    name="newIssueDue" placeholder='Tags'></textarea>
                     <div class="InputButtonDiv">
-                        <button class="InputButton" type="submit">Create</button>
+                        <button class="InputButton"type="submit">Create</button>
                     </div>
                 </form>
             </div>

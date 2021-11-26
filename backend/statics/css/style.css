@@ -106,7 +106,15 @@ hr
   width:93% ;
 }
 /* New Issue*/
-.InputIssue
+.InputTitle
+{
+  height: 20px;
+  width: 93%;
+  position: relative;
+  border-style:ridge;
+  margin: 1% 2% 1% 2%;
+}
+.InputDescrip
 {
   height: 70px;
   width: 93%;
@@ -121,14 +129,6 @@ hr
   position: relative;
   border-style:ridge;
   margin: 1% 2% 5% 2%;
-}
-.InputTags
-{
-  height: 20px;
-  width: 93%;
-  position: relative;
-  border-style:ridge;
-  margin: 1% 2% 1% 2%;
 }
 .InputButtonDiv
 {

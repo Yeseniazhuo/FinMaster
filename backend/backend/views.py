@@ -178,14 +178,16 @@ def dashboard(request):
 
     # create new issue
     if request.method == 'GET':
-        if 'InputIssue' in request.GET:
-            NewIssue = request.GET.get('InputIssue')
+        if 'InputTitle' in request.GET:
+            NewTitle = request.GET.get('InputTitle')
+        if 'InputDescrip' in request.GET:
+            NewDescrip = request.GET.get('InputDescrip')
         if 'InputDue' in request.GET:
             NewDue = request.GET.get('InputDue')
-        if 'InputTags' in request.GET:
-            NewTags = request.GET.get('InputTags')
-        if (NewIssue != '') & (NewDue != '') & (NewTags != ''):
-            x = 0 # save to db     
+        if (NewTitle != '')  & (NewDue != ''):
+            x = 0 # save to db
+        else:
+            message = 'Create failed, please fill in the title and due time completely！'      
 
     return render(request, 'Dashboard.html', context)
 
