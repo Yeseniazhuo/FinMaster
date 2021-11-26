@@ -175,6 +175,7 @@ def dashboard(request):
         'news_content_3': news_content_3
     }
 
+
     # create new issue
     if request.method == 'GET':
         if 'InputIssue' in request.GET:
@@ -183,6 +184,8 @@ def dashboard(request):
             NewDue = request.GET.get('InputDue')
         if 'InputTags' in request.GET:
             NewTags = request.GET.get('InputTags')
+        if (NewIssue != '') & (NewDue != '') & (NewTags != ''):
+            x = 0 # save to db     
 
     return render(request, 'Dashboard.html', context)
 
