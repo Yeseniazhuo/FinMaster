@@ -147,11 +147,12 @@ def info_plot_2(selected_symbol):
     """
     Plot the SMA comparsion
     """
+    #merge SMA togethor 
     SMA_5  = get_n_days_SMA_data(selected_symbol,5)
     SMA_10  = get_n_days_SMA_data(selected_symbol,10)
     SMA_df = pd.merge(SMA_5, SMA_10, on='date')
-    a_year_ago= datetime.now() + timedelta(days=-90)
-    SMA_df = SMA_df.loc[SMA_df.date>=a_year_ago].reset_index(drop=True)
+    quarter_ago= datetime.now() + timedelta(days=-90)
+    SMA_df = SMA_df.loc[SMA_df.date>=quarter_ago].reset_index(drop=True)
     
     # Define constants
     W_PLOT = 850
@@ -182,8 +183,49 @@ def info_plot_2(selected_symbol):
     script, div=components(p)
     return script, div
 
-def info_plot_3(selected_symbol):
-    x = 0
+ def info_plot_3(selected_symbol):
+        # Merge index and stock 
+    stock = request_selected_symbol(selected_symbol)
+    stock['close'] = stock['close'].pct_change(1)
+    stock = stock.rename(columns={'close':'stock_close'})
+    stock = stock[['date','stock_close']]
+    index = request_selected_symbol('SPY')
+    index['close'] = index['close'].pct_change(1)
+    index = index.rename(columns={'close':'index_close'})
+    index = index[['date','index_close']]
+    index['index_close'] = index['index_close'] # divide by 100 for comparsion
+    Compar = pd.merge(stock, index, on='date')
+    month_ago= datetime.now() + timedelta(days=-30)
+    Compar = Compar.loc[Compar.date>=month_ago].reset_index(drop=True)
+        
+    # Define constants
+    W_PLOT = 850
+    H_PLOT = 280
+    TOOLS = 'pan,wheel_zoom,hover,reset'
+
+    #plot
+    p = figure(x_axis_type="datetime",plot_width=W_PLOT, plot_height=H_PLOT, tools=TOOLS, toolbar_location='right')
+    p.line(Compar['date'], Compar['stock_close'], legend_label=selected_symbol+' Daily Return', line_color="tomato")
+    p.line(Compar['date'], Compar['index_close'], legend_label='S&P 500'+' Daily Return', line_color="blue")
+
+    #set legend
+    p.legend.location = "top_left"
+    p.legend.border_line_alpha = 0
+    p.legend.background_fill_alpha = 0
+    p.legend.click_policy = "mute"
+
+    # set x_axis y_axis
+    p.yaxis.formatter = NumeralTickFormatter(format=' 0,0[.]000')
+    p.x_range.range_padding = 0.1
+    p.xaxis.ticker.desired_num_ticks = 40
+    p.xaxis.major_label_orientation = 3.14/4
+
+    #delete grid
+    p.xgrid.visible = False
+    p.ygrid.visible = False 
+    
+    script, div=components(p)
+    return script, div
     
 def dashboard(request):
     
@@ -226,12 +268,15 @@ def info(request):
     news_title_1,news_title_2,news_title_3,news_content_1,news_content_2,news_content_3,news_title_4,news_title_5,news_title_6,news_content_4,news_content_5,news_content_6=info_news(keyword)
     script_1,div_1=info_plot_1(selected_symbol)
     script_2,div_2=info_plot_2(selected_symbol)
+    script_3,div_3=info_plot_3(selected_symbol)
 
     context={
         'div_1':div_1,
         'script_1':script_1,
         'div_2':div_2,
         'script_2':script_2,
+        'div_3':div_3,
+        'script_3':script_3,
         'news_title_1':news_title_1,
         'news_title_2':news_title_2,
         'news_title_3':news_title_3,
