@@ -28,9 +28,8 @@
 <body>
     <div class="Header">
         <header>FinMaster</header>
-        <i class="far fa-bell" id="bell-icon"></i>
         <i class="fas fa-cog" id="cog-icon"></i>
-        <i class="fas fa-user-circle" id="user-icon"></i>
+        <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
     </div>
     <div class='root'>
         <!--Navigate Bar-->
@@ -45,12 +44,13 @@
             <div class='allIndexRevenue'>
                 <p class='ClassTitle'>Stock Performance</p>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}}</p>
+                    <p class='ClassTitle'>{{Security}} Trend</p>
                     {{div_1 | safe}}
                 </div>
                 <hr/>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}}</p>
+                    <p class='ClassTitle'>{{Security}} 5-day & 10-day SMA Comparison</p>
+                    {{div_2 | safe}}
                 </div>                
                 <hr/>
                 <div class='Security'>

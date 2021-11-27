@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Oxanium&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Font icons -->
+    <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
+
+    <!-- bokeh plot -->
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.4.1.min.js"></script>
+
+    <title>FinMaster Dashboard</title>
+</head>
+
+<body>
+    <div class="Header">
+        <header>FinMaster</header>
+        <i class="fas fa-cog" id="cog-icon"></i>
+        <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
+    </div>
+    <div class='root'>
+        <!--Navigate Bar-->
+        <div class='NavigateBar'>
+            <a href="/" class="linkName">Dashboard</a>
+            <a href="{% url 'calendar' %}" class="linkName">Calendar</a>
+            <a href="{% url 'info' %}" class="linkName">Financial Information</strong></a>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

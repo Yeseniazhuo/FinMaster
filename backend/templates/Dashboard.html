@@ -27,9 +27,8 @@
 <body>
     <div class="Header">
         <header>FinMaster</header>
-        <i class="far fa-bell" id="bell-icon"></i>
         <i class="fas fa-cog" id="cog-icon"></i>
-        <i class="fas fa-user-circle" id="user-icon"></i>
+        <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
     </div>
 
     <div class='root'>
@@ -57,19 +56,16 @@
             </div>
             <!--Issue Creating-->                        
             <div class='Card'>
-                <p class='ClassTitle'>Create A New Task</p>
-                <p class='SubTitle'>Input to create a Task:</p>
+                <p class='ClassTitle'>Create A New Issue</p>
+                <p class='SubTitle'>Input to create a issue:</p>
                 <form>
-                    <textarea  class="InputTitle" type = "text" 
-                    name="newTaskTitle" placeholder='Task Title'></textarea>
-                    <p class='SubTitle'>Description:</p>
-                    <textarea class="InputDescrip" type = "text" 
-                    name="newTaskDescrip" placeholder='Specify your tasks'></textarea>
+                    <textarea class="InputIssue" type = "text" 
+                    name="newIssue" placeholder='What is the task?'></textarea>
                     <p class='SubTitle'>Due date:</p>
                     <input class="InputDue" type = "datetime-local" name="newIssueDue"></textarea>
-                    <div class="InputButtonDiv">
-                        <button class="InputButton"type="submit">Create</button>
-                    </div>
+                    <p class='SubTitle'>Tags:</p>
+                    <textarea  class="InputTags" type = "text" 
+                    name="newIssueDue" placeholder='Tags'></textarea>
                 </form>
             </div>
             <!--Small Calendar-->                        
@@ -83,7 +79,7 @@
         <div class="BottomCards">
             <!--Index Revenue-->
             <div class='IndexRevenue'>
-                <p class='ClassTitle'>Selected Index Revenue</p>
+                <p class='ClassTitle'>S&P Daily Quotes</p>
                 <div class='Revenue'>
                     <p>{{selected_symbol}}</p>
                     <!--Historical price plot-->

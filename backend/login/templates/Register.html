@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="register-area">
+    <div class="Card register-card">
+
+        {% if message %}
+            <div class="alert-warning">{{ message }}</div>
+        {% endif %}
+
+        <h3>REGISTER</h3>
+        <div>
+            <form method="post" class="input-area">
+
+                {% csrf_token %}
+                <h5>{{ register_form.username.label_tag }}</h5>
+                <div class="name-input">{{ register_form.username }}</div>
+                <h5>{{ register_form.password1.label_tag }}</h5>
+                <div class="pwd-input">{{ register_form.password1 }}</div>
+                <h5>{{ register_form.password2.label_tag }}</h5>
+                <div class="pwd-input">{{ register_form.password2 }}</div>
+                <h5>{{ register_form.email.label_tag }}</h5>
+                <div class="email-input">{{ register_form.email }}</div>
+                <a href="{% url 'login' %}" style="font-size: 15px;">Already have an account? Log in!<br/></a>
+                <button type="submit" class="register-button">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
