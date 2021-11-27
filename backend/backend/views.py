@@ -95,6 +95,7 @@ def info_plot_1(selected_symbol):
     ORANGE = Category20[3][2]
     PURPLE = Category20[9][8]
     BROWN = Category20[11][10]
+
     p = figure(plot_width=W_PLOT, plot_height=H_PLOT, tools=TOOLS, toolbar_location='right')
 
     inc = stock.data['close'] > stock.data['open']
@@ -158,7 +159,7 @@ def info_plot_2(selected_symbol):
     TOOLS = 'pan,wheel_zoom,hover,reset'
 
     #plot
-    p = figure(plot_width=W_PLOT, plot_height=H_PLOT, tools=TOOLS, toolbar_location='right')
+    p = figure(x_axis_type="datetime",plot_width=W_PLOT, plot_height=H_PLOT, tools=TOOLS, toolbar_location='right')
     p.line(SMA_df['date'], SMA_df['SMA_5'], legend_label='5 days SMA', line_color="tomato")
     p.line(SMA_df['date'], SMA_df['SMA_10'], legend_label='10 days SMA', line_color="blue")
 
@@ -167,6 +168,17 @@ def info_plot_2(selected_symbol):
     p.legend.border_line_alpha = 0
     p.legend.background_fill_alpha = 0
     p.legend.click_policy = "mute"
+
+    # set x_axis y_axis
+    p.yaxis.formatter = NumeralTickFormatter(format='$ 0,0[.]000')
+    p.x_range.range_padding = 0.1
+    p.xaxis.ticker.desired_num_ticks = 40
+    p.xaxis.major_label_orientation = 3.14/4
+
+    #delete grid
+    p.xgrid.visible = False
+    p.ygrid.visible = False 
+
     script, div=components(p)
     return script, div
 

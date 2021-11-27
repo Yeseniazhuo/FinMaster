@@ -64,15 +64,6 @@ def get_n_days_SMA_data(selected_symbol,n):
     df['date'] = pd.to_datetime(df['date'])
     return df 
 
-    df = pd.DataFrame.from_dict(
-        data['Technical Analysis: SMA'], orient='index').reset_index()
-    df = df.rename(columns={'index': 'date'})
-    df['date'] = pd.to_datetime(df['date'])
-    df = df.sort_values(by=['date'])
-    df.SMA = df.SMA.astype(float)
-
-    return df
-
 
 def small_calendar():
     today = date.today()
