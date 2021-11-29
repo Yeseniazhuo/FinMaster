@@ -10,6 +10,7 @@
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
@@ -52,25 +53,24 @@
             <div class='Card'>
                 <p class='ClassTitle'>Weekly Progress</p>
                 <p class='SubTitle'>{{start_time}}</p>
-                <img src="{{ img_ef }}" class="graph">
-
+                <div id="pieChart" class="graph"></div>
             </div>
             <!--Upcoming Tasks-->            
             <div class='Card'>
                 <p class='ClassTitle'>Upcoming Tasks</p>
                 <div class='RecentTask'>
-                    <P>Task: {{title1}}</P>
-                    <P>Due: {{due1}}</P> 
+                    <p>Task: {{ title1 }}</p>
+                    <p>Due: {{ due1 }}</p>
                 </div>
                 <hr/>
                 <div class='RecentTask'>
-                    <P>Task: {{title2}}</P>
-                    <P>Due: {{due2}}</P> 
+                    <p>Task: {{ title2 }}</p>
+                    <p>Due: {{ due2 }}</p>
                 </div>
                 <hr/>
                 <div class='RecentTask'>
-                    <P>Task: {{title3}}</P>
-                    <P>Due: {{due3}}</P> 
+                    <p>Task: {{ title3 }}</p>
+                    <p>Due: {{ due3 }}</p>
                 </div>
             </div>
             <!--Issue Creating-->                        
@@ -85,11 +85,12 @@
                     </table>
                 </form>
             </div>
-            <!--Small Calendar-->                        
+            <!--Alert Calendar-->                        
             <div class='Card'>
                 <a class='ClassTitle' href="{% url 'calendar' %}">{{month}}</a>
-                <div class='SmallCalendar'>
-                    {{calendar}}
+                <div class='Alert'>
+                    <P class='DateNum'>{{today}}</P>
+                    <P class='Alert_info'>{{delaynum}}</P>
                 </div>
             </div>
         </div>
@@ -130,5 +131,44 @@
 
     {{ script | safe }}
 </body>
+
+    <script type="text/javascript">
+        $(function() {
+            var pieChart=echarts.init(document.getElementById('pieChart'));
+            option={
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['60%', '90%'],
+                        avoidLabelOverlap: false,
+                        stillShowZeroSum: false,
+                        label: {
+                            show: false,
+                            position: 'center',
+                            emphasis: {
+                            show: true
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        emphasis: {
+                            label: {
+                            show: true,
+                            fontSize: '45',
+                            fontWeight: 'bold'
+                            }
+                        },
+                        data: [
+                            {value:{{unfinished}}, name: 'Unfinished tasks'},
+                            {value:{{finished}}, name: 'Finished tasks'}
+                        ],
+                    }
+                ]
+            };
+
+            pieChart.setOption(option);
+        });
+    </script>
 
 </html>
