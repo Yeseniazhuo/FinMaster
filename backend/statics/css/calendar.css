@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Yeseniazhuo 
+cheryl-mxd
+/
+FinMaster
+Public
+forked from Yeseniazhuo/FinMaster
+0
+01
+Code
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+FinMaster/backend/statics/css/calendar.css
+@cheryl-mxd
+cheryl-mxd Complete /calendar/ sidebar display.
+…
+Latest commit 64668b5 18 minutes ago
+ History
+ 1 contributor
+298 lines (286 sloc)  4.63 KB
+   
 /*-------------------------Calendar-----------------------*/
 /*-----Main calendar-----*/
 .calendar {
@@ -218,23 +249,12 @@ ul {
   text-align: left;
 }
 .sidebar-event {
-  width: 268px;
-  height: 48px;
-  opacity: 1;
-  position: absolute;
-  top: 28px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-event-time {
-  width: 268px;
-  height: 16px;
-  margin: 8px;
+  height: 80px;
   opacity: 1;
   position: relative;
-  top: 0px;
+  margin-top: 10px;
   left: 0px;
-  overflow: hidden;
+  overflow: auto;
 }
 .sidebar-event-dot {
   width: 12px;
@@ -247,7 +267,7 @@ ul {
   border-radius: 50%;
 }
 .sidebar-event-period {
-  width: 120px;
+  width: 80%;
   height: 16px;
   margin: 4px;
   opacity: 1;
@@ -256,9 +276,9 @@ ul {
   left: 20px;
   overflow: hidden;
 }
-.sidebar-event-start {
-  width: 120px;
-  color: rgba(161, 161, 170, 1);
+.sidebar-event-time {
+  width: 80%;
+  color: rgb(196, 196, 196);
   position: absolute;
   top: -3px;
   left: 0px;
@@ -268,24 +288,29 @@ ul {
   opacity: 1;
   text-align: left;
 }
-.sidebar-event-content-block {
-  width: 268px;
-  height: 32px;
-  margin: 10px;
+.sidebar-event-title-block {
+  margin: 20px 25px 0px 25px;
   opacity: 1;
-  position: absolute;
-  top: 16px;
   left: 0px;
-  overflow: hidden;
+  overflow: auto;
+}
+.sidebar-event-title {
+  color: rgba(255, 255, 255, 1);
+  font-family: Inter;
+  text-decoration: underline;
+  font-size: 15px;
+  opacity: 1;
+  text-align: left;
+}
+.sidebar-event-content-block {
+  margin: 0px 25px 5px 25px;
+  opacity: 1;
+  left: 0px;
+  overflow: auto;
 }
 .sidebar-event-content {
-  width: 248px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 0px;
-  left: 20px;
+  color: rgba(255, 255, 255, 0.815);
   font-family: Inter;
-  font-weight: Medium;
   font-size: 12px;
   opacity: 1;
   text-align: left;

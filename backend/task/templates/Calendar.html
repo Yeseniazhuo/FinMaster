@@ -73,17 +73,20 @@
                             <span class="sidebar-daily-date">TODAY</span>
                             <span class="sidebar-daily-day">{{ sidebar_today }}</span>
                         </div>
+                        {% for task in today_tasks %}
                         <div class="sidebar-event">
-                            <div class="sidebar-event-time">
-                                <div class="sidebar-event-dot"></div>
-                                <div class="sidebar-event-period">
-                                    <span class="sidebar-event-start">8:30 AM - 9:30 PM</span>
-                                </div>
+                            <div class="sidebar-event-dot"></div>
+                            <div class="sidebar-event-period">
+                                <span class="sidebar-event-time">{{ task.due }}</span>
+                            </div>
+                            <div class="sidebar-event-title-block">
+                                <span class="sidebar-event-title">{{ task.title }}</span>
                             </div>
                             <div class="sidebar-event-content-block">
-                                <span class="sidebar-event-content">Monthly catch-up</span>
+                                <span class="sidebar-event-content">{{ task.content }}</span>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

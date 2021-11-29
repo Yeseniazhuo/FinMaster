@@ -81,7 +81,7 @@ def sidebar_calendar():
     today = datetime.today()
     sidebar_dates = [[] for i in range(6)]
 
-    tmp = date(today.year,today.month,day=1)
+    tmp = date(today.year, today.month, day=1)
     for i in range(6):
         for j in range(7):
             if j == tmp.weekday() and tmp.month == today.month:
@@ -91,3 +91,10 @@ def sidebar_calendar():
                 sidebar_dates[i].append('')
 
     return sidebar_dates
+
+
+def sidebar_today_tasks():
+    d = datetime.today()
+    tasks = Task.objects.filter(
+        due__year=d.year, due__month=d.month, due__day=d.day)
+    return tasks
