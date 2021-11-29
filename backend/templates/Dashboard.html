@@ -67,17 +67,12 @@
             <div class='Card'>
                 <p class='ClassTitle'>Create A New Task</p>
                 <p class='SubTitle'>Input to create a task:</p>
-                <form>
-                    <textarea  class="InputTitle" type = "text" 
-                    name="newTaskTitle" placeholder='Task Title'></textarea>
-                    <p class='SubTitle'>Description:</p>
-                    <textarea class="InputDescrip" type = "text" 
-                    name="newTaskDescrip" placeholder='Specify your tasks'></textarea>
-                    <p class='SubTitle'>Due date:</p>
-                    <input class="InputDue" type = "datetime-local" name="newIssueDue"></textarea>
-                    <div class="InputButtonDiv">
-                        <button class="InputButton" type="submit">Create</button>
-                    </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <table class="form form-table">
+                    {{ form }}
+                    <tr><td colspan="2"><button type="submit" class="InputButton">Submit</button></td></tr>
+                    </table>
                 </form>
             </div>
             <!--Small Calendar-->                        

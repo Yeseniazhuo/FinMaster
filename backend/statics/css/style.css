@@ -97,40 +97,8 @@ hr {
   margin: auto;
   width: 93%;
 }
-/* New Task*/
-.InputTitle {
-  height: 20px;
-  width: 93%;
-  position: relative;
-  border-style: ridge;
-  margin: 1% 2% 1% 2%;
-}
-.InputDescrip {
-  height: 70px;
-  width: 93%;
-  position: relative;
-  border-style: ridge;
-  margin: 1% 2% 1% 2%;
-}
-.InputDue {
-  height: 20px;
-  width: 93%;
-  position: relative;
-  border-style: ridge;
-  margin: 1% 2% 5% 2%;
-}
-.InputButtonDiv {
-  text-align: center;
-  width: 93%;
-  position: relative;
-  margin: auto 2% auto 2%;
-}
-.InputButton {
-  background-color: rgba(214, 209, 205, 0.384);
-  border-style: ridge;
-  width: 100%;
-  border-color: rgba(214, 209, 205, 0.438);
-}
+
+
 /*Small Calendar*/
 .SmallCalendar {
   margin-left: 5px;
@@ -256,4 +224,31 @@ hr {
   margin-top: 10px;
   font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/*-----Task form-----*/
+.form {
+  margin: 2% 2% 1% 2%;  
+  position: relative;
+}
+
+.form input,
+.form select,
+.form textarea {
+  border-radius: 5px;
+  border: 1px solid rgba(128, 96, 71, 0.863);
+  outline: none;
+  background: none;
+  padding: 5px;
+  width: 93%;
+  height: 35px;
+  margin: 1% 3% 1% 3%;  
+}
+.InputButton {
+  background-color: rgba(214, 209, 205, 0.384);
+  border-style: ridge;
+  width: 100%;
+  border-color: rgba(214, 209, 205, 0.438);
+  margin-top: 5%;  
 }
