@@ -50,18 +50,28 @@
         <div class="TopCards">
             <!--Weekly Progress-->
             <div class='Card'>
-
                 <p class='ClassTitle'>Weekly Progress</p>
                 <p class='SubTitle'>{{start_time}}</p>
+                <img src="{{ img_ef }}" class="graph">
+
             </div>
             <!--Upcoming Tasks-->            
             <div class='Card'>
                 <p class='ClassTitle'>Upcoming Tasks</p>
-                <div class='RecentTask'>Task 1</div>
+                <div class='RecentTask'>
+                    <P>Task: {{title1}}</P>
+                    <P>Due: {{due1}}</P> 
+                </div>
                 <hr/>
-                <div class='RecentTask'>Task 2</div>
+                <div class='RecentTask'>
+                    <P>Task: {{title2}}</P>
+                    <P>Due: {{due2}}</P> 
+                </div>
                 <hr/>
-                <div class='RecentTask'>Task 3</div>
+                <div class='RecentTask'>
+                    <P>Task: {{title3}}</P>
+                    <P>Due: {{due3}}</P> 
+                </div>
             </div>
             <!--Issue Creating-->                        
             <div class='Card'>
@@ -69,7 +79,7 @@
                 <p class='SubTitle'>Input to create a task:</p>
                 <form method="post">
                     {% csrf_token %}
-                    <table class="form form-table">
+                    <table class="form form-table form-dashboard">
                     {{ form }}
                     <tr><td colspan="2"><button type="submit" class="InputButton">Submit</button></td></tr>
                     </table>

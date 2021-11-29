@@ -7,8 +7,9 @@ from . import models
 
 
 def login(request):
-    """if request.session.get('is_login', None):
-        return redirect('/')"""
+    if request.session.get('is_login', None):
+        username=request.session['user_name']
+        return render(request, 'Logout.html', locals())
 
     if request.method == 'POST':
         login_form = models.UserForm(request.POST)
@@ -34,8 +35,9 @@ def login(request):
 
 
 def register(request):
-    """if request.session.get('is_login', None):
-        return redirect('/')"""
+    if request.session.get('is_login', None):
+        return redirect('/login/')
+
     if request.method == 'POST':
         register_form = models.RegisterForm(request.POST)
         message = 'All fields must be filled!'
@@ -70,9 +72,9 @@ def register(request):
 
 def logout(request):
     if not request.session.get('is_login', None):
-        return redirect('/')
+        return redirect('/login/')
     request.session.flush()
-    return redirect('/')
+    return redirect('/login/')
 
 
 def hash_code(s, salt='finmaster'):

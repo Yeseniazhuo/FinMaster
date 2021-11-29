@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404,render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.utils.safestring import mark_safe
 from django.contrib import auth
@@ -7,12 +7,15 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
-
 from bokeh.plotting import figure, ColumnDataSource
 from bokeh.embed import components
 from bokeh.models import BooleanFilter, CDSView, Select, Range1d, HoverTool
 from bokeh.palettes import Category20
 from bokeh.models.formatters import NumeralTickFormatter
+
+from matplotlib import pyplot as plt
+import base64
+from io import BytesIO
 
 from .utils import *
 from task.models import *
@@ -50,6 +53,7 @@ def plot_dashboard(selected_symbol):
     last_close = df.iloc[-1].close
 
     return script, div, last_high, last_close
+
 
 
 def dashboard_news(keyword):
@@ -255,9 +259,35 @@ def info_plot_3(selected_symbol):
     script, div = components(p)
     return script, div
 
+def decode_plot(buffer):
+    plot_data = buffer.getvalue()
+    imb=base64.b64encode(plot_data)
+    ims=imb.decode()
+    imd="data:image/png;base64," + ims
+    return imd
 
-def dashboard(request,task_id=None):
+def Draw_Progress():
+    unfinished_tasks = Task.objects.filter(due__lte=datetime.now(),due__gte=datetime.now()+\
+        timedelta(days=-7),complete_status=False)
+    finished_tasks = Task.objects.filter(due__lte=datetime.now(),due__gte=datetime.now()+\
+        timedelta(days=-7),complete_status=True)
+    plt.figure(figsize=(6,9)) 
+    labels = ['Finished Task','Unfinished Task'] #Label
+    sizes = [len(unfinished_tasks),len(finished_tasks)] #每块值
+    colors = ['yellowgreen','yellow'] 
+    plt.pie(sizes,labels=labels,colors=colors,shadow=True) 
+    plt.axis('equal')
+    buffer = BytesIO()
+    plt.savefig(buffer)
+    plt.close()
+    return buffer
 
+
+
+def dashboard(request, task_id=None):
+    """if not request.session.get('is_login', None):
+        return redirect('/login/')"""
+    
     selected_symbol = 'SPY'
     script, div, last_high, last_close = plot_dashboard(selected_symbol)
 
@@ -267,6 +297,10 @@ def dashboard(request,task_id=None):
     start_time = this_monday()
     month = this_month()
     calendar = mark_safe(small_calendar())
+    
+    #weekly Progress
+    buffer = Draw_Progress()
+    Progress_plot = decode_plot(buffer)
 
     # create new issue
     instance = Task()
@@ -279,10 +313,49 @@ def dashboard(request,task_id=None):
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
+
+    tasks = Task.objects.filter(due__lte=datetime.now()+timedelta(days=1),complete_status=False).order_by('due').reverse()
+    if len(tasks) >= 3:
+        lastest_task1 = tasks[0]
+        title1 =  lastest_task1.title
+        due1 =  lastest_task1.due
+        lastest_task2 = tasks[1]
+        title2 =  lastest_task2.title
+        due2 =  lastest_task2.due
+        lastest_task3 = tasks[2]
+        title3 =  lastest_task3.title
+        due3 =  lastest_task3.due
+    elif len(tasks) == 2:
+        lastest_task1 = tasks[0]
+        title1 =  lastest_task1.title
+        due1 =  lastest_task1.due
+        lastest_task2 = tasks[1]
+        title2 =  lastest_task2.title
+        due2 =  lastest_task2.due
+        title3 =  'No Third task'
+        due3 =  'No Third task'
+    elif len(tasks) == 1:
+        lastest_task1 = tasks[0]
+        title1 =  lastest_task1.title
+        due1 =  lastest_task1.due
+        title2 =  'No Second task'
+        due2 =  'No Second task'
+        title3 =  'No Third task'
+        due3 =  'No Third task'
+    elif len(tasks) == 0:
+        title1 =  'No First task'
+        due1 =  'No First task'
+        title2 =  'No Second task'
+        due2 =  'No Second task'
+        title3 =  'No Third task'
+        due3 =  'No Third task'
     return render(request, 'Dashboard.html', locals())
 
 
 def info(request):
+    """if not request.session.get('is_login', None):
+        return redirect('/login/')"""
+    
     keyword = 'AAPL AND stock'
 
     selected_symbol = 'AAPL'

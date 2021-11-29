@@ -37,6 +37,7 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         context['sidebar_dates'] = sidebar_calendar()
         context['sidebar_today'] = datetime.today().strftime('%d/%m/%Y')
+        context['today_tasks'] = sidebar_today_tasks()
 
         return context
 
@@ -96,5 +97,5 @@ def sidebar_calendar():
 def sidebar_today_tasks():
     d = datetime.today()
     tasks = Task.objects.filter(
-        due__year=d.year, due__month=d.month, due__day=d.day)
+        due__year=d.year, due__month=d.month, due__day=d.day, complete_status=False)
     return tasks

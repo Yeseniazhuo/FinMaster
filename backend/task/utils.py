@@ -10,7 +10,7 @@ class Calendar(HTMLCalendar):
 
     # Transform the days into td
     def formatday(self, day, tasks):
-        tasks_today = tasks.filter(due__day=day,complete_status=False)
+        tasks_today = tasks.filter(due__day=day, complete_status=False)
         day_tr = ''
         for task in tasks_today:
             day_tr += f'<li>{task.get_html_url}</li>'

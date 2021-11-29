@@ -1,6 +1,7 @@
 /*-------------------------Login-----------------------*/
 .login-area,
-.register-area {
+.register-area,
+.logout-area {
   padding-top: 9%;
 }
 .login-card {
@@ -12,6 +13,12 @@
 .register-card {
   padding-top: 2%;
   height: 420px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.logout-card{
+  padding-top: 2%;
+  height: 200px;
   left: 50%;
   transform: translate(-50%, 0);
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="logout-area">
+    <div class="Card logout-card">
+
+        <h3>Welcome to FinMaster, </h3>
+        <h3>{{ username }}</h3>
+        <div class="text-center">
+            <a href="{% url 'logout' %}" class="btn btn-default">Log Out</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

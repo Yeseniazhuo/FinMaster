@@ -26,6 +26,7 @@ urlpatterns = [
     path('info/', views.info, name='info'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
     path('task/new/', task, name='task_new'),
     path('task/edit/(?P<task_id>\d+)/$', task, name='task_edit'),
 ]
