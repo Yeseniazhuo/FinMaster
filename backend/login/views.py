@@ -1,4 +1,5 @@
 import re
+import hashlib
 from django.shortcuts import redirect, render
 from . import models
 
@@ -16,8 +17,8 @@ def login(request):
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
             try:
-                user = models.Users.objects.get(name=username)
-                if user.password == password:
+                user = models.User.objects.get(name=username)
+                if user.password == hash_code(password):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.id
                     request.session['user_name'] = user.name
@@ -47,18 +48,18 @@ def register(request):
                 message = 'Two different passwords entered!'
                 return render(request, 'Register.html', locals())
             else:
-                same_name_user = models.Users.objects.filter(name=username)
+                same_name_user = models.User.objects.filter(name=username)
                 if same_name_user:
                     message = 'User already exists, please select a new user name.'
                     return render(request, 'Register.html', locals())
-                same_email_user = models.Users.objects.filter(email=email)
+                same_email_user = models.User.objects.filter(email=email)
                 if same_email_user:
                     message = 'This email address has already been registered, please use another email address.'
                     return render(request, 'Register.html', locals())
 
-                new_user = models.Users.objects.create()
+                new_user = models.User.objects.create()
                 new_user.name = username
-                new_user.password = password1
+                new_user.password = hash_code(password1)
                 new_user.email = email
                 new_user.save()
                 return redirect('/login/')
@@ -72,3 +73,10 @@ def logout(request):
         return redirect('/')
     request.session.flush()
     return redirect('/')
+
+
+def hash_code(s, salt='finmaster'):
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()

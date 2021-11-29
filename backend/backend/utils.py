@@ -36,8 +36,7 @@ def request_selected_symbol(selected_symbol):
 
     df = pd.DataFrame.from_dict(
         data['Time Series (Daily)'], orient='index').reset_index()
-    df = df.rename(columns={'index': 'date', '1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close',
-                            '5. adjusted close': 'adjusted close', '6. volume': 'volume', '7. dividend amount': 'dividend amount', '8. split coefficient': 'split coefficient'})
+    df = df.rename(columns={'index': 'date', '1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close', '5. adjusted close': 'adjusted close', '6. volume': 'volume', '7. dividend amount': 'dividend amount', '8. split coefficient': 'split coefficient'})
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values(by=['date'])
     df.open = df.open.astype(float)
@@ -48,26 +47,26 @@ def request_selected_symbol(selected_symbol):
     return df
 
 
-def get_n_days_SMA_data(selected_symbol,n):
-    """
-    Return the n-days SMA data
-    """
+def request_selected_sma(selected_symbol):
     apikey = "H1P717SYTFDWWWBK"
-    url = 'https://www.alphavantage.co/query?function=SMA&symbol='+\
-           selected_symbol +'&interval=daily&time_period='+str(n)+'&series_type=open&apikey='+apikey
+    url = 'https://www.alphavantage.co/query?function=SMA&symbol='+selected_symbol + \
+        '&interval=daily&time_period=10&series_type=close&apikey='+apikey
     r = requests.get(url)
     data = r.json()
+
     df = pd.DataFrame.from_dict(
         data['Technical Analysis: SMA'], orient='index').reset_index()
-    df.SMA = df.SMA.astype(float)
-    df = df.rename(columns={'index':'date','SMA':'SMA_'+str(n)})
+    df = df.rename(columns={'index': 'date'})
     df['date'] = pd.to_datetime(df['date'])
-    return df 
+    df = df.sort_values(by=['date'])
+    df.SMA = df.SMA.astype(float)
+
+    return df
 
 
 def small_calendar():
     today = date.today()
-    tc = HTMLCalendar(calendar.SUNDAY).formatmonth(today.year, today.month)
+    tc = HTMLCalendar(calendar.MONDAY).formatmonth(today.year, today.month)
     table = tc.splitlines()
     table.pop(1)
 
@@ -86,4 +85,20 @@ def request_selected_news(keyword):
 
     return news
 
-#print(request_selected_news('AAPL AND stock'))
+
+def get_n_days_SMA_data(selected_symbol, n):
+    """
+    Return the n-days SMA data
+    """
+    apikey = "H1P717SYTFDWWWBK"
+    url = 'https://www.alphavantage.co/query?function=SMA&symbol=' +\
+        selected_symbol + '&interval=daily&time_period=' + \
+        str(n)+'&series_type=open&apikey='+apikey
+    r = requests.get(url)
+    data = r.json()
+    df = pd.DataFrame.from_dict(
+        data['Technical Analysis: SMA'], orient='index').reset_index()
+    df.SMA = df.SMA.astype(float)
+    df = df.rename(columns={'index': 'date', 'SMA': 'SMA_'+str(n)})
+    df['date'] = pd.to_datetime(df['date'])
+    return df

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Oxanium&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <meta name="Dashboard" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    
+    <!-- Font icons -->
+    <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
+
+    <!-- JQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CDN -->
+    <!-- Latest Bootstrap core CSS files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Latest Bootstrap core JavaScript files -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    
+    <title>FinMaster Dashboard</title>
+</head>
+
+<body>
+    <div class="Header">
+        <header>FinMaster</header>
+        <i class="fas fa-cog" id="cog-icon"></i>
+        <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
+    </div>
+    <div class="root">
+        <div class="NavigateBar">
+            <a href="/" class="linkName">Dashboard</a>
+            <a href="{% url 'calendar' %}" class="linkName"><strong>Calendar</strong></a>
+            <a href="{% url 'info' %}" class="linkName">Financial Information</a>
+        </div>
+
+        <div class="calendar-container">
+            <div class="calendar-sidebar">
+                <div class="calendar-sidebar-date">
+                    <span class="sidebar-month">{{this_month}}</span>
+                    <span class="sidebar-year">{{this_year}}</span>
+                </div>
+                <table class="sidebar-calendar">
+                    <thead>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </thead>
+                    <tbody>
+                    {% for row in sidebar_dates %}
+                    <tr>
+                        {% for date in row %}
+                        <td>{{ date }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="sidebar-daily">
+                    <div class="sidebar-daily-contents">
+                        <div class="sidebar-daily-today">
+                            <span class="sidebar-daily-date">TODAY</span>
+                            <span class="sidebar-daily-day">{{ sidebar_today }}</span>
+                        </div>
+                        <div class="sidebar-event">
+                            <div class="sidebar-event-time">
+                                <div class="sidebar-event-dot"></div>
+                                <div class="sidebar-event-period">
+                                    <span class="sidebar-event-start">8:30 AM - 9:30 PM</span>
+                                </div>
+                            </div>
+                            <div class="sidebar-event-content-block">
+                                <span class="sidebar-event-content">Monthly catch-up</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-main">
+                <div class="clearfix">
+                    <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}">Previous</a>
+                    <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}">Next</a>
+                    <a class="btn btn-info right" href="{% url 'task_new' %}">New Task</a>
+                </div>
+                {{ calendar }}
+            </div>
+        </div>
+    </div>
+</body>

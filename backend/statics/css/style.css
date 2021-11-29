@@ -61,7 +61,7 @@ header {
   padding-right: 10px;
   padding-bottom: 10px;
   width: 100%;
-  height: 360px;
+  height: 380px;
 }
 .ClassTitle {
   margin: 1%;
@@ -97,9 +97,16 @@ hr {
   margin: auto;
   width: 93%;
 }
-/* New Issue*/
-.InputIssue {
-  height: 80px;
+/* New Task*/
+.InputTitle {
+  height: 20px;
+  width: 93%;
+  position: relative;
+  border-style: ridge;
+  margin: 1% 2% 1% 2%;
+}
+.InputDescrip {
+  height: 70px;
   width: 93%;
   position: relative;
   border-style: ridge;
@@ -112,12 +119,17 @@ hr {
   border-style: ridge;
   margin: 1% 2% 5% 2%;
 }
-.InputTags {
-  height: 20px;
+.InputButtonDiv {
+  text-align: center;
   width: 93%;
   position: relative;
+  margin: auto 2% auto 2%;
+}
+.InputButton {
+  background-color: rgba(214, 209, 205, 0.384);
   border-style: ridge;
-  margin: 1% 2% 1% 2%;
+  width: 100%;
+  border-color: rgba(214, 209, 205, 0.438);
 }
 /*Small Calendar*/
 .SmallCalendar {
@@ -148,7 +160,7 @@ hr {
   float: left;
   width: 58%;
   margin: 0 0.5%;
-  height: 350px;
+  height: 370px;
   border: 1px solid rgba(128, 96, 71, 0.863);
   box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
   border-radius: 3%;
@@ -159,20 +171,24 @@ hr {
   height: 230px;
 }
 .Indexinfo {
-  margin: 10px auto;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
   width: 95%;
   height: 60px;
+  top: 230px;
 }
-h4 {
+.LastPrice {
   text-align: center;
   text-decoration: underline;
 }
+
 /*Recent dNews*/
 .RecentNews {
   float: left;
   width: 40%;
   margin: 0 0.5%;
-  height: 350px;
+  height: 370px;
   position: relative;
   border: 1px solid rgba(128, 96, 71, 0.863);
   box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
@@ -182,6 +198,7 @@ h4 {
   margin: 10px auto;
   width: 90%;
   height: 80px;
+  overflow: auto;
 }
 .NewsContent {
   margin-top: 10px;
@@ -200,7 +217,7 @@ h4 {
 .allIndexRevenue {
   margin: 0 0.5%;
   width: 60%;
-  height: 900px;
+  height: 1000px;
   position: relative;
   border: 1px solid rgba(128, 96, 71, 0.863);
   box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
@@ -226,6 +243,7 @@ h4 {
   margin: 10px auto;
   width: 95%;
   height: 124px;
+  overflow: auto;
 }
 .NewsTitle {
   margin: 1%;
@@ -236,441 +254,6 @@ h4 {
 }
 .NewsContent {
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/*-------------------------Calendar-----------------------*/
-.calendar-container {
-  width: 100%;
-  height: 900px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-/*sidebar*/
-.calendar-sidebar {
-  width: 300px;
-  height: 900px;
-  background-color: rgba(24, 24, 27, 1);
-  margin: 16px;
-  padding: 16px 16px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.calendar-sidebar-date {
-  width: 202px;
-  height: 40px;
-  margin: 4px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-month {
-  width: 129px;
-  color: rgba(255, 255, 255, 1);
-  position: relative;
-  top: 0px;
-  left: 0px;
-  font-family: Inter;
-  font-size: 25px;
-  opacity: 1;
-  text-align: left;
-}
-.sidebar-year {
-  width: 69px;
-  color: rgba(239, 68, 68, 1);
-  position: absolute;
-  top: 0px;
-  left: 125px;
-  font-family: Inter;
-  font-size: 25px;
-  opacity: 1;
-  text-align: left;
-}
-.sidebar-small-calendar {
-  width: 268px;
-  height: 192px;
-  opacity: 1;
-  position: absolute;
-  top: 72px;
-  left: 16px;
-  overflow: hidden;
-}
-.small-calendar-header {
-  width: 268px;
-  height: 24px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.name {
-  float: left;
-  padding: 1%;
-  color: #fff;
-  opacity: 0.8;
-  text-align: center;
-  font-size: 15px;
-}
-
-.small-calendar-line {
-  width: 268px;
-  height: 28px;
-  opacity: 1;
-  position: absolute;
-  overflow: hidden;
-}
-.small-line1 {
-  top: 24px;
-  left: 0px;
-}
-.small-line2 {
-  top: 52px;
-  left: 0px;
-}
-.small-line3 {
-  top: 80px;
-  left: 0px;
-}
-.small-line4 {
-  top: 108px;
-  left: 0px;
-}
-.small-line5 {
-  top: 136px;
-  left: 0px;
-}
-.small-line6 {
-  top: 164px;
-  left: 0px;
-}
-
-.small-calendar-single {
-  width: 38px;
-  height: 28px;
-  padding: 4px 4px;
-  opacity: 1;
-  overflow: hidden;
-}
-.small-1 {
-  top: 0px;
-  left: 0px;
-  position: relative;
-}
-.small-2 {
-  top: 0px;
-  left: 38px;
-  position: absolute;
-}
-.small-3 {
-  top: 0px;
-  left: 76px;
-  position: absolute;
-}
-.small-4 {
-  top: 0px;
-  left: 114px;
-  position: absolute;
-}
-.small-5 {
-  top: 0px;
-  left: 152px;
-  position: absolute;
-}
-.small-6 {
-  top: 0px;
-  left: 190px;
-  position: absolute;
-}
-.small-7 {
-  top: 0px;
-  left: 228px;
-  position: absolute;
-}
-.grey-dates {
-  color: rgba(113, 113, 122, 1);
-}
-.white-dates {
-  color: rgba(255, 255, 255, 1);
-}
-.small-calendar-date {
-  width: 30px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  font-family: Inter;
-  font-weight: Semi Bold;
-  font-size: 11px;
-  opacity: 1;
-  text-align: center;
-}
-
-.sidebar-daily {
-  width: 268px;
-  height: 600px;
-  opacity: 1;
-  position: absolute;
-  top: 280px;
-  left: 16px;
-  overflow: hidden;
-}
-.sidebar-daily-contents {
-  width: 268px;
-  height: 1080px;
-  margin: 8px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-daily-today {
-  width: 268px;
-  height: 20px;
-  margin: 10px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-daily-date {
-  width: 46px;
-  color: rgba(59, 130, 246, 1);
-  position: relative;
-  top: 0px;
-  left: 0px;
-  font-family: Inter;
-  font-weight: Bold;
-  font-size: 13px;
-  opacity: 1;
-  text-align: left;
-}
-.sidebar-daily-day {
-  width: 66px;
-  color: rgba(59, 130, 246, 1);
-  position: absolute;
-  top: 3px;
-  left: 50px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 13px;
-  opacity: 1;
-  text-align: left;
-}
-.sidebar-event {
-  width: 268px;
-  height: 48px;
-  opacity: 1;
-  position: absolute;
-  top: 28px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-event-time {
-  width: 268px;
-  height: 16px;
-  margin: 8px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-event-dot {
-  width: 12px;
-  height: 12px;
-  background: rgba(59, 130, 246, 1);
-  opacity: 1;
-  position: absolute;
-  top: 2px;
-  left: 0px;
-  border-radius: 50%;
-}
-.sidebar-event-period {
-  width: 120px;
-  height: 16px;
-  margin: 4px;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 20px;
-  overflow: hidden;
-}
-.sidebar-event-start {
-  width: 120px;
-  color: rgba(161, 161, 170, 1);
-  position: absolute;
-  top: -3px;
-  left: 0px;
-  font-family: Inter;
-  font-weight: Semi Bold;
-  font-size: 11px;
-  opacity: 1;
-  text-align: left;
-}
-.sidebar-event-content-block {
-  width: 268px;
-  height: 32px;
-  margin: 10px;
-  opacity: 1;
-  position: absolute;
-  top: 16px;
-  left: 0px;
-  overflow: hidden;
-}
-.sidebar-event-content {
-  width: 248px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 0px;
-  left: 20px;
-  font-family: Inter;
-  font-weight: Medium;
-  font-size: 12px;
-  opacity: 1;
-  text-align: left;
-}
-/*main*/
-.calendar-main {
-  width: 100%;
-  height: 904px;
-  padding: 16px 16px;
-  margin: 16px;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 300px;
-  overflow: hidden;
-}
-.calendar-main-nav {
-  width: 100%;
-  height: 28px;
-  opacity: 1;
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  overflow: hidden;
-}
-.calendar-main-container {
-  width: 100%;
-  height: 878px;
-  opacity: 1;
-  position: absolute;
-  top: 60px;
-  left: 16px;
-  overflow: hidden;
-}
-.calendar-main-header {
-  width: 100%;
-  height: 64px;
-  margin: 12px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.calendar-main-header-content {
-  width: 100%;
-  height: 64px;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 48px;
-  overflow: hidden;
-}
-.main-name {
-  color: rgba(113, 113, 122, 1);
-  width: 9%;
-  float: left;
-  padding: 1%;
-  opacity: 1;
-  text-align: center;
-  font-size: 20px;
-}
-.calendar-main-line {
-  width: 100%;
-  height: 64px;
-  margin: 12px;
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.calendar-main-line-content {
-  width: 100%;
-  height: 64px;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 48px;
-  overflow: hidden;
-}
-
-/*-------------------------Login-----------------------*/
-.login-area,
-.register-area {
-  padding-top: 9%;
-}
-.login-card {
-  padding-top: 2%;
-  height: 320px;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-.register-card {
-  padding-top: 2%;
-  height: 440px;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-h3 {
-  text-align: center;
-  font-size: 28px;
-  margin: 20px auto;
-}
-.input-area {
-  display: block;
-  text-align: center;
-}
-.name-input,
-.pwd-input,
-.email-input {
-  margin-bottom: 8px;
-  padding: auto 5px;
-}
-.login-button,
-.register-button {
-  margin-top: 10px;
-  padding: 5px 20px;
-  border-radius: 5px;
-  border: 1px solid;
-  background-color: rgba(214, 209, 205, 0.432);
-  color: black;
-  font-size: 15px;
-}
-.login-button:hover,
-.register-button:hover {
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-.alert-warning{
-  background-color: rgb(255, 248, 157);
-  color: rgb(114, 74, 45);
-  font-weight: bold;
-  text-align: center;
-  margin:0px 30px;
-  font-style: italic;
-  font-size: 16px;
 }

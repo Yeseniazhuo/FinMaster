@@ -4,7 +4,7 @@ from django.forms.forms import Form
 
 # Create your models here.
 
-class Users(models.Model):
+class User(models.Model):
     """
     User sheet.
     """

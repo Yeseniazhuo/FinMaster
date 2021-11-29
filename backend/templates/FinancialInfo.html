@@ -14,6 +14,15 @@
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
 
+    <!-- JQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CDN -->
+    <!-- Latest Bootstrap core CSS files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Latest Bootstrap core JavaScript files -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
     <!-- bokeh plot -->
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.1.min.js"></script>
@@ -44,17 +53,17 @@
             <div class='allIndexRevenue'>
                 <p class='ClassTitle'>Stock Performance</p>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}} Trend</p>
+                    <p class='ClassTitle'>{{Security}}</p>
                     {{div_1 | safe}}
                 </div>
                 <hr/>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}} 5-day & 10-day SMA Comparison</p>
+                    <p class='ClassTitle'>{{Security}}</p>
                     {{div_2 | safe}}
                 </div>                
                 <hr/>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}} Return Compare to S&P500</p>
+                    <p class='ClassTitle'>{{Security}} Return Compared to S&P500</p>
                     {{div_3 | safe}}
                 </div>            
             </div>
@@ -62,33 +71,33 @@
             <div class='Newslist'>
                 <p class='ClassTitle'>Recent News</p>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_1}}</P>
-                    <P class='NewsContent'>{{news_content_1}}</P>
+                    <a class='NewsTitle' href="{{ news_url_1 }}">{{news_title_1}}</a>
+                    <p class='NewsContent'>{{news_content_1}}</p>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_2}}</P>
-                    <P class='NewsContent'>{{news_content_2}}</P>
+                    <a class='NewsTitle' href="{{ news_url_2 }}">{{news_title_2}}</a>
+                    <p class='NewsContent'>{{news_content_2}}</p>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_3}}</P>
-                    <P class='NewsContent'>{{news_content_3}}</P>
+                    <a class='NewsTitle' href="{{ news_url_3 }}">{{news_title_3}}</a>
+                    <p class='NewsContent'>{{news_content_3}}</p>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_4}}</P>
-                    <P class='NewsContent'>{{news_content_4}}</P>
+                    <a class='NewsTitle' href="{{ news_url_4 }}">{{news_title_4}}</a>
+                    <p class='NewsContent'>{{news_content_4}}</p>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_5}}</P>
-                    <P class='NewsContent'>{{news_content_5}}</P>
+                    <a class='NewsTitle' href="{{ news_url_5 }}">{{news_title_5}}</a>
+                    <p class='NewsContent'>{{news_content_5}}</p>
                 </div>
                 <hr/>
                 <div class='FullNews'>
-                    <P class='NewsTitle'>{{news_title_6}}</P>
-                    <P class='NewsContent'>{{news_content_6}}</P>
+                    <a class='NewsTitle' href="{{ news_url_6 }}">{{news_title_6}}</a>
+                    <p class='NewsContent'>{{news_content_6}}</p>
                 </div>
             </div>
         </div>

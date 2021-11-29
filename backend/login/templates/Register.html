@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="register-area">
     <div class="Card register-card">
 
         {% if message %}
-            <div class="alert-warning">{{ message }}</div>
+            <div class="alert alert-warning alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
         {% endif %}
 
         <h3>REGISTER</h3>
@@ -13,16 +22,25 @@
             <form method="post" class="input-area">
 
                 {% csrf_token %}
-                <h5>{{ register_form.username.label_tag }}</h5>
-                <div class="name-input">{{ register_form.username }}</div>
-                <h5>{{ register_form.password1.label_tag }}</h5>
-                <div class="pwd-input">{{ register_form.password1 }}</div>
-                <h5>{{ register_form.password2.label_tag }}</h5>
-                <div class="pwd-input">{{ register_form.password2 }}</div>
-                <h5>{{ register_form.email.label_tag }}</h5>
-                <div class="email-input">{{ register_form.email }}</div>
+                <div class="form-group">
+                    {{ register_form.username.label_tag }}
+                    {{ register_form.username }}
+                </div>
+                <div class="form-group">
+                    {{ register_form.password1.label_tag }}
+                    {{ register_form.password1 }}
+                </div>
+                <div class="form-group">
+                    {{ register_form.password2.label_tag }}
+                    {{ register_form.password2 }}
+                </div>
+                <div class="form-group">
+                    {{ register_form.email.label_tag }}
+                    {{ register_form.email }}
+                </div>
                 <a href="{% url 'login' %}" style="font-size: 15px;">Already have an account? Log in!<br/></a>
-                <button type="submit" class="register-button">Register</button>
+                <button type="reset" class="btn btn-default pull-left">Reset</button>
+                <button type="submit" class="btn btn-primary pull-right">Register</button>
             </form>
         </div>
     </div>

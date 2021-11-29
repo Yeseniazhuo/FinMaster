@@ -14,6 +14,15 @@
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
 
+    <!-- JQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CDN -->
+    <!-- Latest Bootstrap core CSS files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Latest Bootstrap core JavaScript files -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
     <!-- bokeh plot -->
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.1.min.js"></script>
@@ -56,21 +65,24 @@
             </div>
             <!--Issue Creating-->                        
             <div class='Card'>
-                <p class='ClassTitle'>Create A New Issue</p>
-                <p class='SubTitle'>Input to create a issue:</p>
+                <p class='ClassTitle'>Create A New Task</p>
+                <p class='SubTitle'>Input to create a task:</p>
                 <form>
-                    <textarea class="InputIssue" type = "text" 
-                    name="newIssue" placeholder='What is the task?'></textarea>
+                    <textarea  class="InputTitle" type = "text" 
+                    name="newTaskTitle" placeholder='Task Title'></textarea>
+                    <p class='SubTitle'>Description:</p>
+                    <textarea class="InputDescrip" type = "text" 
+                    name="newTaskDescrip" placeholder='Specify your tasks'></textarea>
                     <p class='SubTitle'>Due date:</p>
                     <input class="InputDue" type = "datetime-local" name="newIssueDue"></textarea>
-                    <p class='SubTitle'>Tags:</p>
-                    <textarea  class="InputTags" type = "text" 
-                    name="newIssueDue" placeholder='Tags'></textarea>
+                    <div class="InputButtonDiv">
+                        <button class="InputButton" type="submit">Create</button>
+                    </div>
                 </form>
             </div>
             <!--Small Calendar-->                        
             <div class='Card'>
-                <p class='ClassTitle'>{{this_month}}</p>
+                <a class='ClassTitle' href="{% url 'calendar' %}">{{month}}</a>
                 <div class='SmallCalendar'>
                     {{calendar}}
                 </div>
@@ -86,25 +98,25 @@
                     {{ div | safe }}
                 </div>
                 <div class='Indexinfo'>
-                    <p>Latest price</p>
-                    <h4>Last high: {{last_high}} &nbsp &nbsp &nbsp &nbsp Last close: {{last_close}}</h4>
+                    <h4>Last price: </h4>
+                    <h4 class="LastPrice">Last high: {{last_high}} &nbsp &nbsp &nbsp &nbsp Last close: {{last_close}}</h4>
                 </div>
             </div>
             <!--recent News-->            
             <div class='RecentNews'>
                 <a href="{% url 'info' %}"><p class='ClassTitle'>Recent News</p></a>
                 <div class='News'>
-                    <h4 style="text-align: left;">{{news_title_1}}</h4>
+                    <a class='NewsTitle' href="{{ news_url_1 }}">{{news_title_1}}</a>
                     <p class='NewsContent'>{{news_content_1}}</p>
                 </div>
                 <hr/>
                 <div class='News'>
-                    <h4 style="text-align: left;">{{news_title_2}}</h4>
+                    <a class='NewsTitle' href="{{ news_url_2 }}">{{news_title_2}}</a>
                     <p class='NewsContent'>{{news_content_2}}</p>
                 </div>
                 <hr/>
                 <div class='News'>
-                    <h4 style="text-align: left;">{{news_title_3}}</h4>
+                    <a class='NewsTitle' href="{{ news_url_3 }}">{{news_title_3}}</a>
                     <p class='NewsContent'>{{news_content_3}}</p>
                 </div>
             </div>

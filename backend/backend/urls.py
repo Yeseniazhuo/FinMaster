@@ -17,12 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from login.views import login, register, logout
+from task.views import CalendarView, task
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.dashboard),
-    path('calendar/', views.calendar, name='calendar'),
+    path('calendar/', CalendarView.as_view(), name='calendar'),
     path('info/', views.info, name='info'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
+    path('task/new/', task, name='task_new'),
+    path('task/edit/(?P<task_id>\d+)/$', task, name='task_edit'),
 ]

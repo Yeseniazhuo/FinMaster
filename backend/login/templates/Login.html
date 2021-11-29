@@ -1,26 +1,38 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="login-area">
     <div class="Card login-card">
 
         {% if message %}
-            <div class="alert-warning">{{ message }}</div>
+            <div class="alert alert-warning alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
         {% endif %}
 
         <h3>LOGIN</h3>
-        <div>
-            <form method="post" class="input-area">
+        <form method="post" class="input-area">
 
-                {% csrf_token %}
-                <h5>{{ login_form.username.label_tag }}</h5>
-                <div class="name-input">{{ login_form.username }}</div>
-                <h5>{{ login_form.password.label_tag }}</h5>
-                <div class="pwd-input">{{ login_form.password }}</div>
-                <a href="{% url 'register' %}" style="font-size: 15px;">Do not have an account? Register now!<br/></a>
-                <button type="submit" class="login-button">Log In</button>
-            </form>
-        </div>
+            {% csrf_token %}
+            <div class="form-group">
+                {{ login_form.username.label_tag }}
+                {{ login_form.username }}
+            </div>
+            <div class="form-group">
+                {{ login_form.password.label_tag }}
+                {{ login_form.password }}
+            </div>
+            <a href="{% url 'register' %}" style="font-size: 15px;">Do not have an account? Register now!<br/></a>
+            <button type="reset" class="btn btn-default pull-left">Reset</button>
+            <button type="submit" class="btn btn-primary pull-right">Log In</button>
+        </form>
     </div>
 </div>
 {% endblock %}

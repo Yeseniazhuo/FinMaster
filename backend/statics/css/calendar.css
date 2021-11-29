@@ -1,0 +1,304 @@
+/*-------------------------Calendar-----------------------*/
+/*-----Main calendar-----*/
+.calendar {
+  width: 100%;
+  float: left;
+  margin: auto;
+  font-size: 13px;
+}
+
+.calendar tr,
+.calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 130px;
+  padding: 20px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+/*-----Main calendar buttons-----*/
+.clearfix {
+  margin: 0px 15px 15px 15px;
+}
+.btn {
+  outline: none;
+  color: black;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+/*-----Task form-----*/
+.form {
+  margin: auto;
+}
+
+.form input,
+.form select,
+.form textarea {
+  border-radius: 5px;
+  border: 1px solid #17a2b8;
+  outline: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
+}
+
+/*-----Sidebar calendar-----*/
+.sidebar-calendar {
+  width: 268px;
+  height: 192px;
+  opacity: 1;
+  position: absolute;
+  top: 72px;
+  left: 16px;
+  overflow: auto;
+}
+.sidebar-calendar thead {
+  width: 268px;
+  height: 24px;
+  opacity: 1;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+.sidebar-calendar th {
+  color: #fff;
+  opacity: 0.8;
+  text-align: center;
+  font-size: 15px;
+}
+.sidebar-calendar tbody {
+  margin-top: 30px;
+}
+.sidebar-calendar td {
+  width: 30px;
+  height: 10px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 11px;
+  opacity: 0.95;
+  text-align: center;
+  color: white;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+.calendar-container {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+/*sidebar*/
+.calendar-sidebar {
+  width: 20%;
+  height: 794px;
+  background-color: rgba(24, 24, 27, 1);
+  margin: 16px;
+  padding: 16px 16px;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.calendar-sidebar-date {
+  width: 202px;
+  height: 40px;
+  margin: 4px;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-month {
+  width: 129px;
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-family: Inter;
+  font-size: 25px;
+  opacity: 1;
+  text-align: left;
+}
+.sidebar-year {
+  width: 69px;
+  color: rgba(239, 68, 68, 1);
+  position: absolute;
+  top: 0px;
+  left: 125px;
+  font-family: Inter;
+  font-size: 25px;
+  opacity: 1;
+  text-align: left;
+}
+
+.sidebar-daily {
+  width: 268px;
+  height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 280px;
+  left: 16px;
+  overflow: hidden;
+}
+.sidebar-daily-contents {
+  width: 268px;
+  height: 1080px;
+  margin: 8px;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-daily-today {
+  width: 268px;
+  height: 20px;
+  margin: 10px;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-daily-date {
+  width: 46px;
+  color: rgba(59, 130, 246, 1);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-family: Inter;
+  font-weight: Bold;
+  font-size: 13px;
+  opacity: 1;
+  text-align: left;
+}
+.sidebar-daily-day {
+  width: 66px;
+  color: rgba(59, 130, 246, 1);
+  position: absolute;
+  top: 3px;
+  left: 50px;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 13px;
+  opacity: 1;
+  text-align: left;
+}
+.sidebar-event {
+  width: 268px;
+  height: 48px;
+  opacity: 1;
+  position: absolute;
+  top: 28px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-event-time {
+  width: 268px;
+  height: 16px;
+  margin: 8px;
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-event-dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(59, 130, 246, 1);
+  opacity: 1;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  border-radius: 50%;
+}
+.sidebar-event-period {
+  width: 120px;
+  height: 16px;
+  margin: 4px;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  overflow: hidden;
+}
+.sidebar-event-start {
+  width: 120px;
+  color: rgba(161, 161, 170, 1);
+  position: absolute;
+  top: -3px;
+  left: 0px;
+  font-family: Inter;
+  font-weight: Semi Bold;
+  font-size: 11px;
+  opacity: 1;
+  text-align: left;
+}
+.sidebar-event-content-block {
+  width: 268px;
+  height: 32px;
+  margin: 10px;
+  opacity: 1;
+  position: absolute;
+  top: 16px;
+  left: 0px;
+  overflow: hidden;
+}
+.sidebar-event-content {
+  width: 248px;
+  color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  font-family: Inter;
+  font-weight: Medium;
+  font-size: 12px;
+  opacity: 1;
+  text-align: left;
+}
+/*main*/
+.calendar-main {
+  width: 79%;
+  height: 810px;
+  padding: 0px 16px 16px 16px;
+  margin: 16px;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 20%;
+  overflow: auto;
+}
