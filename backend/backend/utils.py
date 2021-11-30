@@ -6,14 +6,6 @@ import pandas as pd
 from calendar import HTMLCalendar
 
 
-def this_monday():
-    """
-    Return the date of current week's monday.
-    """
-    today = date.today()
-    return datetime.strftime(today-timedelta(today.weekday()), "%Y-%m-%d")
-
-
 def this_month():
     today = date.today()
     return today.strftime('%B')
@@ -36,7 +28,8 @@ def request_selected_symbol(selected_symbol):
 
     df = pd.DataFrame.from_dict(
         data['Time Series (Daily)'], orient='index').reset_index()
-    df = df.rename(columns={'index': 'date', '1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close', '5. adjusted close': 'adjusted close', '6. volume': 'volume', '7. dividend amount': 'dividend amount', '8. split coefficient': 'split coefficient'})
+    df = df.rename(columns={'index': 'date', '1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close',
+                            '5. adjusted close': 'adjusted close', '6. volume': 'volume', '7. dividend amount': 'dividend amount', '8. split coefficient': 'split coefficient'})
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values(by=['date'])
     df.open = df.open.astype(float)
@@ -62,15 +55,6 @@ def request_selected_sma(selected_symbol):
     df.SMA = df.SMA.astype(float)
 
     return df
-
-
-def small_calendar():
-    today = date.today()
-    tc = HTMLCalendar(calendar.MONDAY).formatmonth(today.year, today.month)
-    table = tc.splitlines()
-    table.pop(1)
-
-    return '\n'.join(table)
 
 
 def request_selected_news(keyword):

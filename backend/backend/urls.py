@@ -18,15 +18,16 @@ from django.urls import path
 from . import views
 from login.views import login, register, logout
 from task.views import CalendarView, task
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.dashboard),
-    path('calendar/', CalendarView.as_view(), name='calendar'),
-    path('info/', views.info, name='info'),
+    path('', login_required(views.dashboard)),
+    path('calendar/', login_required(CalendarView.as_view()), name='calendar'),
+    path('info/', login_required(views.info), name='info'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
-    path('task/new/', task, name='task_new'),
-    path('task/edit/(?P<task_id>\d+)/$', task, name='task_edit'),
+    path('task/new/', login_required(task), name='task_new'),
+    path('task/edit/(?P<task_id>\d+)/$', login_required(task), name='task_edit'),
 ]

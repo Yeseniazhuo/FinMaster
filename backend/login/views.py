@@ -1,14 +1,17 @@
 import re
 import hashlib
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from . import models
 
 # Create your views here.
 
 
 def login(request):
-    if request.session.get('is_login', None):
-        username=request.session['user_name']
+    if request.user.is_authenticated:
+        username = request.user.username
         return render(request, 'Logout.html', locals())
 
     if request.method == 'POST':
@@ -17,17 +20,12 @@ def login(request):
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
-            try:
-                user = models.User.objects.get(name=username)
-                if user.password == hash_code(password):
-                    request.session['is_login'] = True
-                    request.session['user_id'] = user.id
-                    request.session['user_name'] = user.name
-                    return redirect('/')
-                else:
-                    message = "Wrong password!"
-            except:
-                message = "User does not exist!"
+            user = authenticate(request, username=username, password=hash_code(password))
+            if user is not None:
+                auth_login(request,user)
+                return redirect('/')
+            else:
+                message="Invalid login. Please check your inputs."
         return render(request, 'Login.html', locals())
 
     login_form = models.UserForm()
@@ -35,7 +33,7 @@ def login(request):
 
 
 def register(request):
-    if request.session.get('is_login', None):
+    if request.user.is_authenticated:
         return redirect('/login/')
 
     if request.method == 'POST':
@@ -50,7 +48,7 @@ def register(request):
                 message = 'Two different passwords entered!'
                 return render(request, 'Register.html', locals())
             else:
-                same_name_user = models.User.objects.filter(name=username)
+                same_name_user = models.User.objects.filter(username=username)
                 if same_name_user:
                     message = 'User already exists, please select a new user name.'
                     return render(request, 'Register.html', locals())
@@ -59,11 +57,7 @@ def register(request):
                     message = 'This email address has already been registered, please use another email address.'
                     return render(request, 'Register.html', locals())
 
-                new_user = models.User.objects.create()
-                new_user.name = username
-                new_user.password = hash_code(password1)
-                new_user.email = email
-                new_user.save()
+                new_user = models.User.objects.create_user(username=username,password=hash_code(password1),email=email)
                 return redirect('/login/')
 
     register_form = models.RegisterForm()
@@ -71,9 +65,9 @@ def register(request):
 
 
 def logout(request):
-    if not request.session.get('is_login', None):
+    if not request.user.is_authenticated:
         return redirect('/login/')
-    request.session.flush()
+    auth_logout(request)
     return redirect('/login/')
 
 

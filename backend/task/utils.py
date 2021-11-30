@@ -3,9 +3,10 @@ from .models import Task
 
 
 class Calendar(HTMLCalendar):
-    def __init__(self, year=None, month=None):
+    def __init__(self, user, year=None, month=None):
         self.year = year
         self.month = month
+        self.user = user
         super(Calendar, self).__init__()
 
     # Transform the days into td
@@ -28,7 +29,7 @@ class Calendar(HTMLCalendar):
     # Transform a month into table
     def formatmonth(self, withyear=True):
         tasks = Task.objects.filter(
-            due__year=self.year, due__month=self.month)
+            owner=self.user, due__year=self.year, due__month=self.month)
 
         month = f'<table  border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
         month += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'

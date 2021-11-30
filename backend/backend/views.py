@@ -13,7 +13,7 @@ from bokeh.models import BooleanFilter, CDSView, Select, Range1d, HoverTool
 from bokeh.palettes import Category20
 from bokeh.models.formatters import NumeralTickFormatter
 
-import matplotlib.pyplot as plt
+from datetime import datetime
 import base64
 from io import BytesIO
 
@@ -259,22 +259,19 @@ def info_plot_3(selected_symbol):
     return script, div
 
 
-def progress_count():
-    unfinished_tasks = Task.objects.filter(due__lte=datetime.now(), due__gte=datetime.now() +
-                                           timedelta(days=-7), complete_status=False)
-    finished_tasks = Task.objects.filter(due__lte=datetime.now(), due__gte=datetime.now() +
-                                         timedelta(days=-7), complete_status=True)
+def progress_count(request):
+    unfinished_tasks = Task.objects.filter(owner=request.user, due__lte=datetime.today().replace(hour=23,minute=59,second=59), due__gte=datetime.today().replace(hour=23,minute=59,second=59) + timedelta(days=-7), complete_status=False)
+    finished_tasks = Task.objects.filter(owner=request.user, due__lte=datetime.today().replace(hour=23,minute=59,second=59), due__gte=datetime.today().replace(hour=23,minute=59,second=59) + timedelta(days=-7),  complete_status=True)
     unfinished = len(unfinished_tasks)
     finished = len(finished_tasks)
     return unfinished, finished
 
 
 def dashboard(request, task_id=None):
-    """if not request.session.get('is_login', None):
-        return redirect('/login/')"""
 
-    unfinished, finished = progress_count()
-    print(unfinished, finished)
+    unfinished, finished = progress_count(request)
+    #print(unfinished, finished)
+    #print(request.user)
 
     selected_symbol = 'SPY'
     script, div, last_high, last_close = plot_dashboard(selected_symbol)
@@ -283,30 +280,30 @@ def dashboard(request, task_id=None):
     news_title_1, news_title_2, news_title_3, news_content_1, news_content_2, news_content_3, news_url_1, news_url_2, news_url_3 = dashboard_news(
         keyword)
 
-    start_time = this_monday()
+    start_time = datetime.today().strftime('%Y-%m-%d')
     month = this_month()
+
     today = datetime.today().day
 
-    Delaytask = Task.objects.filter(due__lte=datetime.now(), complete_status=False)
+    Delaytask = Task.objects.filter(owner=request.user, due__lte=datetime.now(), complete_status=False)
     if len(Delaytask) > 0:
         delaynum = 'Warning!! '+str(len(Delaytask))+' Delayed task!'
     else:
-        delaynum = ' Congratulation!! All Task finished on time!!'
+        delaynum = ' Congratulations!! All Task finished on time!!'
 
     # create new issue
-    instance = Task()
+    instance = Task(owner=request.user)
     if task_id:
         instance = get_object_or_404(Task, pk=task_id)
     else:
-        instance = Task()
+        instance = Task(owner=request.user)
 
     form = TaskForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
 
-    tasks = Task.objects.filter(due__lte=datetime.now(
-    )+timedelta(days=1), complete_status=False).order_by('due').reverse()
+    tasks = Task.objects.filter(owner=request.user, due__lte=datetime.now()+timedelta(days=1), complete_status=False).order_by('due').reverse()
     if len(tasks) >= 3:
         lastest_task1 = tasks[0]
         title1 = lastest_task1.title
@@ -346,8 +343,6 @@ def dashboard(request, task_id=None):
 
 
 def info(request):
-    """if not request.session.get('is_login', None):
-        return redirect('/login/')"""
 
     keyword = 'AAPL AND stock'
 

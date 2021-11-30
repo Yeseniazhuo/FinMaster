@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 
 from .models import *
-from backend.utils import this_month, this_year, small_calendar
+from backend.utils import this_month, this_year
 from .utils import Calendar
 
 from datetime import date, datetime, time, timedelta
@@ -26,7 +26,7 @@ class CalendarView(generic.ListView):
         d = get_date(self.request.GET.get('month', None))
 
         # Instantiate our calendar class with today's year and date
-        cal = Calendar(d.year, d.month)
+        cal = Calendar(self.request.user, d.year, d.month)
 
         # Call the formatmonth method, which returns our calendar as a table
         html_cal = cal.formatmonth(withyear=True)
@@ -37,7 +37,7 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         context['sidebar_dates'] = sidebar_calendar()
         context['sidebar_today'] = datetime.today().strftime('%d/%m/%Y')
-        context['today_tasks'] = sidebar_today_tasks()
+        context['today_tasks'] = sidebar_today_tasks(self.request)
 
         return context
 
@@ -65,15 +65,18 @@ def next_month(d):
 
 
 def task(request, task_id=None):
-    instance = Task()
+    instance = Task(owner=request.user)
     if task_id:
         instance = get_object_or_404(Task, pk=task_id)
     else:
-        instance = Task()
+        instance = Task(owner=request.user)
 
     form = TaskForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
+    if request.POST and 'submit' in request.POST and form.is_valid():
         form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+    elif request.POST and 'delete' in request.POST and form.is_valid():
+        Task.objects.filter(pk=task_id).delete()
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'Task.html', {'form': form})
 
@@ -94,8 +97,8 @@ def sidebar_calendar():
     return sidebar_dates
 
 
-def sidebar_today_tasks():
+def sidebar_today_tasks(request):
     d = datetime.today()
     tasks = Task.objects.filter(
-        due__year=d.year, due__month=d.month, due__day=d.day, complete_status=False)
+        owner=request.user, due__year=d.year, due__month=d.month, due__day=d.day, complete_status=False)
     return tasks

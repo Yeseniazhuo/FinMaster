@@ -1,23 +1,18 @@
 from django.db import models
 from django import forms
-from django.forms.forms import Form
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class User(models.Model):
-    """
-    User sheet.
-    """
-    name = models.CharField(max_length=128, unique=True)
+class User(AbstractUser):
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True)
-    c_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.username
 
     class Meta:
-        ordering = ['c_time']
+        ordering = ['date_joined']
         verbose_name = 'user'
         verbose_name_plural = 'user'
 

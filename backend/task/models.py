@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models import fields
 from django.forms import ModelForm, DateInput
 from django.urls import reverse
+from login.models import User
 
 # Create your models here.
 
@@ -10,6 +12,8 @@ class Task(models.Model):
     content = models.TextField()
     due = models.DateTimeField()
     complete_status = models.BooleanField(default=False)
+
+    owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     @property
     def get_html_url(self):
@@ -24,7 +28,7 @@ class TaskForm(ModelForm):
         widgets = {
             'due': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
         }
-        fields = '__all__'
+        fields = ['title','content','due','complete_status']
 
     def __init__(self, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
