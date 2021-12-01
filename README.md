@@ -2,6 +2,9 @@
 
 Financial Time Management Tool
 
+Video showing how our website works can be found at:
+https://www.youtube.com/watch?v=ibTOg0w5qYU
+
 ## Author
 
 This project is built and maintained by @cheryl-mxd and @Yeseniazhuo. Private repository addresses are https://github.com/cheryl-mxd/FinMaster.git and https://github.com/Yeseniazhuo/FinMaster.git. Please check both repositories for commits' details and the final versions of the two repositories are exactly the same. 
