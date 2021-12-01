@@ -35,5 +35,6 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('settings/', login_required(user_settings), name='settings'),
     path('task/new/', login_required(task), name='task_new'),
-    path('__debug__/', include(debug_toolbar.urls)), # for performance
+    path('task/edit/(?P<task_id>\d+)/$', login_required(task), name='task_edit'),
+    path('__debug__/', include(debug_toolbar.urls)), # for performance test
 ]
