@@ -28,9 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# change your loclhost accordinglt
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,9 +44,11 @@ INSTALLED_APPS = [
     'login',
     'task',
     'finance',
+    "debug_toolbar",# for performance test
 ]
 
 MIDDLEWARE = [
+     "debug_toolbar.middleware.DebugToolbarMiddleware", # for performance test
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
