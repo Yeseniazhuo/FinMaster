@@ -1,10 +1,9 @@
 # FinMaster
 
 Financial Time Management Tool
+
 Video showing how our website works can be found at:
 https://www.youtube.com/watch?v=ibTOg0w5qYU
-![image](https://user-images.githubusercontent.com/53115494/144217321-f43726e4-8005-4033-9ff1-7ae8e139a317.png)
-
 
 ## Author
 
