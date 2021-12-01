@@ -1,33 +1,29 @@
 # FinMaster
- Financial Time Management Tool
+
+Financial Time Management Tool
+
+## Author
+
+This project is built and maintained by @cheryl-mxd and @Yeseniazhuo. Private repository addresses are https://github.com/cheryl-mxd/FinMaster.git and https://github.com/Yeseniazhuo/FinMaster.git. Please check both repositories for commits' details and the final versions of the two repositories are exactly the same. 
+
+The pull requests between repositories are not properly executed because of the security alert brought by the private key of _newsapi_.
 
 ## Execute Instructions
-Our project is fininshed by python
 
-First git clone the current git respository
+Please check `requirements.txt`  for project dependencies.
 
-`git clone https://github.com/Yeseniazhuo/FinMaster.git`
+First, git clone the project repository.
 
-please use pip install to stall django, yhfinance in Terminal
+```shell
+git clone https://github.com/Yeseniazhuo/FinMaster.git
+```
 
-`pip install django`
+Second, run the server in the `FinMaster/backend` folder (remember to change your localhost url in `/backend/backend/settings.py` to `INTERNAL_IPS = [ "127.0.0.1", ]` ).
 
-`pip install yfinance`
+```shell
+python manage.py runserver
+```
 
-`pip install panadas`
+Then you should be able to access the website at `127.0.0.1:8000/`.
 
-<strong>If after use python manage.py runserver, there still warning for package miss, please install it accordingly</strong>
-
-Then change your localhost url in backend/backend/settings.py
-
-`INTERNAL_IPS = [
-    "127.0.0.1",
-]`
-
-
-Then cd the ProjectFinMaster/backend 
-
-Use`python manage.py runserver` to start our web.
-
-
-
+<u>Warning: all functions are only available to logged-in users. You can easily create a new user and enjoy your journey with **FinMaster**!</u>

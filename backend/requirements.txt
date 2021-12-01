@@ -1,0 +1,5 @@
+Django==3.2.9
+django_debug_toolbar==3.2.2
+PyMySQL==1.0.2
+requests==2.24.0
+yfinance==0.1.63
