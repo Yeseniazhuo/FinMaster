@@ -52,7 +52,7 @@ def request_selected_news(keyword):
     """
     url = ('https://newsapi.org/v2/everything?'
            'q='+keyword+'&'
-           'sortBy=publishedAt&apiKey=6e63bd2af1fb4b5b9df13be0810cb70f&language=en')
+           'sortBy=publishedAt&apiKey=8380d8f0cfa54f9fb284674d2532cbd6&language=en')
     r = requests.get(url)
     news = r.json()
 
