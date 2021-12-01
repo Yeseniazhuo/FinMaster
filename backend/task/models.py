@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import fields
 from django.forms import ModelForm, DateInput
 from django.urls import reverse
 from login.models import User

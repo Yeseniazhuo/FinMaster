@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/info.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <table class="form form-table form-settings">
+        {{ form }}
+        <tr><td colspan="2"><button type="submit" class="btn btn-info center-block">Submit</button></td></tr>
+        <tr>
+            <td colspan="2" class="alert alert-warning alert-dismissable">Please use ';' to split your keywords.<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}

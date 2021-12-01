@@ -3,6 +3,18 @@
   margin: 0px 0px;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+  background-color: #f5f5f5;
+}
+
 /*headers*/
 .Header {
   height: 60px;
@@ -61,7 +73,7 @@ header {
   padding-right: 10px;
   padding-bottom: 10px;
   width: 100%;
-  height: 380px;
+  height: 600px;
 }
 .ClassTitle {
   margin: 1%;
@@ -98,25 +110,23 @@ hr {
   margin: 5px auto 5px auto;
   width: 93%;
 }
-.graph {
+.progress-graph {
   height: 220px;
   width: 90%;
   margin: auto;
 }
 
 /*Delay Alert*/
-.Alert
-{
-	text-align: center;
+.Alert {
+  text-align: center;
 }
-.DateNum{
+.DateNum {
   margin: 5%;
   font-size: 110px;
   color: rgb(99, 83, 70);
   margin: 20px 3px 0.5px 3px;
 }
-.Alert_info
-{
+.Alert_info {
   margin: 5%;
   font-size: 20px;
   color: rgb(146, 99, 61);
@@ -128,19 +138,24 @@ hr {
   float: left;
   width: 58%;
   margin: 0 0.5%;
-  height: 370px;
+  height: 580px;
   border: 1px solid rgba(128, 96, 71, 0.863);
   box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
   border-radius: 3%;
 }
 .Revenue {
-  margin: 10px auto;
-  width: 95%;
-  height: 230px;
+  margin: 0px auto;
+  width: 100%;
+  height: 480px;
+  overflow: auto;
+}
+.sp500-plot {
+  height: 480px;
+  width: 100%;
   overflow: auto;
 }
 .Indexinfo {
-  margin-top: 30px;
+  margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
   width: 95%;
@@ -150,6 +165,7 @@ hr {
 .LastPrice {
   text-align: center;
   text-decoration: underline;
+  margin-top: -5px;
 }
 
 /*Recent dNews*/
@@ -157,7 +173,7 @@ hr {
   float: left;
   width: 40%;
   margin: 0 0.5%;
-  height: 370px;
+  height: 580px;
   position: relative;
   border: 1px solid rgba(128, 96, 71, 0.863);
   box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
@@ -166,7 +182,7 @@ hr {
 .News {
   margin: 10px auto;
   width: 90%;
-  height: 80px;
+  height: 150px;
   overflow: auto;
 }
 .NewsContent {
@@ -199,57 +215,4 @@ hr {
   width: 100%;
   border-color: rgba(214, 209, 205, 0.438);
   margin-top: 5%;
-}
-
-/*-----------------------------------Info----------------------------------*/
-.Infos {
-  padding-top: 60px;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-}
-/*all news*/
-.allIndexRevenue {
-  margin: 0 0.5%;
-  width: 60%;
-  height: 1000px;
-  position: relative;
-  border: 1px solid rgba(128, 96, 71, 0.863);
-  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
-  float: left;
-  border-radius: 1.5%;
-}
-.Security {
-  margin: 10px auto;
-  width: 95%;
-  height: 280px;
-  overflow: auto;
-}
-.Newslist {
-  margin: 0 0.5%;
-  width: 38%;
-  height: 100%;
-  position: relative;
-  border: 1px solid rgba(128, 96, 71, 0.863);
-  box-shadow: 3px 2px 2px 2px rgba(128, 96, 71, 0.459);
-  float: left;
-  border-radius: 1.5%;
-}
-.FullNews {
-  margin: 10px auto;
-  width: 95%;
-  height: 124px;
-  overflow: auto;
-}
-.NewsTitle {
-  margin: 1%;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: underline;
-  margin: 5px 3px 2px 3px;
-}
-.NewsContent {
-  margin-top: 10px;
-  font-size: 15px;
-  font-family: Arial, Helvetica, sans-serif;
 }

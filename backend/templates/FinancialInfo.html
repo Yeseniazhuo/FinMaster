@@ -10,6 +10,10 @@
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/info.css' %}">
+
+    <!-- Echarts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 
     <!-- Font icons -->
     <script src="https://kit.fontawesome.com/52c856263e.js" crossorigin="anonymous"></script>
@@ -37,7 +41,7 @@
 <body>
     <div class="Header">
         <header>FinMaster</header>
-        <i class="fas fa-cog" id="cog-icon"></i>
+        <a href="{% url 'settings' %}"><i class="fas fa-cog" id="cog-icon"></i></a>
         <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
     </div>
     <div class='root'>
@@ -49,25 +53,25 @@
         </div>
 
         <div class="Infos">
-            <!--Index-->            
+            <!--Plots-->            
             <div class='allIndexRevenue'>
                 <p class='ClassTitle'>Stock Performance</p>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}}</p>
-                    {{div_1 | safe}}
+                    <p class='ClassTitle'>{{settings.symbol1}} {{settings.interval1}}</p>
+                    <div id="plot1" class="info-plot"></div>
                 </div>
                 <hr/>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}}</p>
-                    {{div_2 | safe}}
+                    <p class='ClassTitle'>{{settings.symbol2}}  {{settings.interval2}}</p>
+                    <div id="plot2" class="info-plot"></div>
                 </div>                
                 <hr/>
                 <div class='Security'>
-                    <p class='ClassTitle'>{{Security}} Return Compared to S&P500</p>
-                    {{div_3 | safe}}
+                    <p class='ClassTitle'>{{settings.symbol3}}  {{settings.interval3}}</p>
+                    <div id="plot3" class="info-plot"></div>
                 </div>            
             </div>
-            <!--Weekly Progress-->
+            <!--News-->
             <div class='Newslist'>
                 <p class='ClassTitle'>Recent News</p>
                 <div class='FullNews'>
@@ -101,9 +105,547 @@
                 </div>
             </div>
         </div>
-        {{ script_1 | safe }}
-        {{ script_2 | safe }}
-        {{ script_3 | safe }}
 </body>
+
+<script type="text/javascript">
+    $(function() {
+        const upColor = '#ec0000';
+        const upBorderColor = '#8A0000';
+        const downColor = '#00da3c';
+        const downBorderColor = '#008F28';
+
+        const categoryData1 = {{categoryData1|safe}};
+        const values1 = splitData({{values1}});
+        const categoryData2 = {{categoryData2|safe}};
+        const values2 = splitData({{values2}});
+        const categoryData3 = {{categoryData3|safe}};
+        const values3 = splitData({{values3}});
+
+        function splitData(rawData) {
+            const values = [];
+            for(var i=0;i<rawData.length;i+=5){
+                const tmp = [];
+                for(var j=0;j<5;j++){
+                    tmp.push(rawData[i+j])
+                }
+                values.push(tmp);
+            }
+            return values;
+        }
+
+        function calculateMA(values, dayCount) {
+            var result = [];
+            for (var i = 0, len = values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += +values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+        var plot1=echarts.init(document.getElementById('plot1'));
+        var plot2=echarts.init(document.getElementById('plot2'));
+        var plot3=echarts.init(document.getElementById('plot3'));
+
+        option1={
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'cross'
+                }
+            },
+            legend: {
+                data: ['Daily K-line', 'MA5', 'MA10', 'MA20']
+            },
+            grid: {
+                left: '5%',
+                right: '5%',
+                bottom: '17%',
+                top: '10%'
+            },
+            xAxis: {
+                type: 'category',
+                data: categoryData1,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: false },
+                min: 'dataMin',
+                max: 'dataMax'
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                show: true
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 50,
+                    end: 100
+                },
+                {
+                    show: true,
+                    type: 'slider',
+                    top: '90%',
+                    start: 50,
+                    end: 100
+                }
+            ],
+            series: [
+                {
+                    name: 'Daily K-line',
+                    type: 'candlestick',
+                    data: values1,
+                    itemStyle: {
+                        color: upColor,
+                        color0: downColor,
+                        borderColor: upBorderColor,
+                        borderColor0: downBorderColor
+                    },
+                    markPoint: {
+                        label: {
+                            formatter: function (param) {
+                                return param != null ? Math.round(param.value) + '' : '';
+                            }
+                        },
+                        data: [
+                            {
+                                name: 'highest value',
+                                type: 'max',
+                                valueDim: 'highest'
+                            },
+                            {
+                                name: 'lowest value',
+                                type: 'min',
+                                valueDim: 'lowest'
+                            },
+                            {
+                                name: 'average value on close',
+                                type: 'average',
+                                valueDim: 'close'
+                            }
+                        ],
+                        tooltip: {
+                            formatter: function (param) {
+                                return param.name + '<br>' + (param.data.coord || '');
+                            }
+                        }
+                    },
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        data: [
+                            [
+                                {
+                                    name: 'from lowest to highest',
+                                    type: 'min',
+                                    valueDim: 'lowest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'max',
+                                    valueDim: 'highest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                }
+                            ],
+                            {
+                                name: 'min line on close',
+                                type: 'min',
+                                valueDim: 'close'
+                            },
+                            {
+                                name: 'max line on close',
+                                type: 'max',
+                                valueDim: 'close'
+                            }
+                        ]
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(values1,5),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(values1,10),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA20',
+                    type: 'line',
+                    data: calculateMA(values1,20),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+            ]
+        };
+
+        option2={
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'cross'
+                }
+            },
+            legend: {
+                data: ['Daily K-line', 'MA5', 'MA10', 'MA20']
+            },
+            grid: {
+                left: '5%',
+                right: '5%',
+                bottom: '17%',
+                top: '10%'
+            },
+            xAxis: {
+                type: 'category',
+                data: categoryData2,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: false },
+                min: 'dataMin',
+                max: 'dataMax'
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                show: true
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 50,
+                    end: 100
+                },
+                {
+                    show: true,
+                    type: 'slider',
+                    top: '90%',
+                    start: 50,
+                    end: 100
+                }
+            ],
+            series: [
+                {
+                    name: 'Daily K-line',
+                    type: 'candlestick',
+                    data: values2,
+                    itemStyle: {
+                        color: upColor,
+                        color0: downColor,
+                        borderColor: upBorderColor,
+                        borderColor0: downBorderColor
+                    },
+                    markPoint: {
+                        label: {
+                            formatter: function (param) {
+                                return param != null ? Math.round(param.value) + '' : '';
+                            }
+                        },
+                        data: [
+                            {
+                                name: 'highest value',
+                                type: 'max',
+                                valueDim: 'highest'
+                            },
+                            {
+                                name: 'lowest value',
+                                type: 'min',
+                                valueDim: 'lowest'
+                            },
+                            {
+                                name: 'average value on close',
+                                type: 'average',
+                                valueDim: 'close'
+                            }
+                        ],
+                        tooltip: {
+                            formatter: function (param) {
+                                return param.name + '<br>' + (param.data.coord || '');
+                            }
+                        }
+                    },
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        data: [
+                            [
+                                {
+                                    name: 'from lowest to highest',
+                                    type: 'min',
+                                    valueDim: 'lowest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'max',
+                                    valueDim: 'highest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                }
+                            ],
+                            {
+                                name: 'min line on close',
+                                type: 'min',
+                                valueDim: 'close'
+                            },
+                            {
+                                name: 'max line on close',
+                                type: 'max',
+                                valueDim: 'close'
+                            }
+                        ]
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(values2,5),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(values2,10),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA20',
+                    type: 'line',
+                    data: calculateMA(values2,20),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+            ]
+        };
+
+        option3={
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'cross'
+                }
+            },
+            legend: {
+                data: ['Daily K-line', 'MA5', 'MA10', 'MA20']
+            },
+            grid: {
+                left: '5%',
+                right: '5%',
+                bottom: '17%',
+                top: '10%'
+            },
+            xAxis: {
+                type: 'category',
+                data: categoryData3,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: false },
+                min: 'dataMin',
+                max: 'dataMax'
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                show: true
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 50,
+                    end: 100
+                },
+                {
+                    show: true,
+                    type: 'slider',
+                    top: '90%',
+                    start: 50,
+                    end: 100
+                }
+            ],
+            series: [
+                {
+                    name: 'Daily K-line',
+                    type: 'candlestick',
+                    data: values3,
+                    itemStyle: {
+                        color: upColor,
+                        color0: downColor,
+                        borderColor: upBorderColor,
+                        borderColor0: downBorderColor
+                    },
+                    markPoint: {
+                        label: {
+                            formatter: function (param) {
+                                return param != null ? Math.round(param.value) + '' : '';
+                            }
+                        },
+                        data: [
+                            {
+                                name: 'highest value',
+                                type: 'max',
+                                valueDim: 'highest'
+                            },
+                            {
+                                name: 'lowest value',
+                                type: 'min',
+                                valueDim: 'lowest'
+                            },
+                            {
+                                name: 'average value on close',
+                                type: 'average',
+                                valueDim: 'close'
+                            }
+                        ],
+                        tooltip: {
+                            formatter: function (param) {
+                                return param.name + '<br>' + (param.data.coord || '');
+                            }
+                        }
+                    },
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        data: [
+                            [
+                                {
+                                    name: 'from lowest to highest',
+                                    type: 'min',
+                                    valueDim: 'lowest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'max',
+                                    valueDim: 'highest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                }
+                            ],
+                            {
+                                name: 'min line on close',
+                                type: 'min',
+                                valueDim: 'close'
+                            },
+                            {
+                                name: 'max line on close',
+                                type: 'max',
+                                valueDim: 'close'
+                            }
+                        ]
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(values3,5),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(values3,10),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA20',
+                    type: 'line',
+                    data: calculateMA(values3,20),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+            ]
+        };
+
+        plot1.setOption(option1);
+        plot2.setOption(option2);
+        plot3.setOption(option3);
+    });
+</script>
 
 </html>

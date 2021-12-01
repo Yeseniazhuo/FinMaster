@@ -4,7 +4,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+
 from . import models
+from finance.models import Settings
 
 # Create your views here.
 
@@ -58,7 +60,9 @@ def register(request):
                     return render(request, 'Register.html', locals())
 
                 new_user = models.User.objects.create_user(username=username,password=hash_code(password1),email=email)
-                return redirect('/login/')
+                auth_login(request,new_user)
+                Settings(owner=new_user).save()
+                return redirect('/settings/')
 
     register_form = models.RegisterForm()
     return render(request, 'Register.html', locals())

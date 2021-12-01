@@ -14,23 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
+from django.contrib.auth.decorators import login_required
+
 from . import views
 from login.views import login, register, logout
 from task.views import CalendarView, task
-from django.contrib.auth.decorators import login_required
-
-import debug_toolbar
+from finance.views import user_settings, info
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_required(views.dashboard)),
     path('calendar/', login_required(CalendarView.as_view()), name='calendar'),
-    path('info/', login_required(views.info), name='info'),
+    path('info/', login_required(info), name='info'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
+    path('settings/', login_required(user_settings), name='settings'),
     path('task/new/', login_required(task), name='task_new'),
     path('task/edit/(?P<task_id>\d+)/$', login_required(task), name='task_edit'),
-    path('__debug__/', include(debug_toolbar.urls)),
 ]

@@ -10,6 +10,9 @@
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/info.css' %}">
+
+    <!-- Echarts -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 
     <!-- Font icons -->
@@ -37,7 +40,7 @@
 <body>
     <div class="Header">
         <header>FinMaster</header>
-        <i class="fas fa-cog" id="cog-icon"></i>
+        <a href="{% url 'settings' %}"><i class="fas fa-cog" id="cog-icon"></i></a>
         <a href="{% url 'login' %}"><i class="fas fa-user-circle" id="user-icon"></i></a>
     </div>
 
@@ -53,7 +56,7 @@
             <div class='Card'>
                 <p class='ClassTitle'>Weekly Progress</p>
                 <p class='SubTitle'>{{start_time}}</p>
-                <div id="pieChart" class="graph"></div>
+                <div id="pieChart" class="progress-graph"></div>
             </div>
             <!--Upcoming Tasks-->            
             <div class='Card'>
@@ -97,11 +100,10 @@
         <div class="BottomCards">
             <!--Index Revenue-->
             <div class='IndexRevenue'>
-                <p class='ClassTitle'>S&P Daily Quotes</p>
+                <p class='ClassTitle'>S&P500 Daily Quotes</p>
                 <div class='Revenue'>
-                    <p>{{selected_symbol}}</p>
                     <!--Historical price plot-->
-                    {{ div | safe }}
+                    <div id="sp500_plot" class="sp500-plot"></div>
                 </div>
                 <div class='Indexinfo'>
                     <h4>Last price: </h4>
@@ -128,47 +130,248 @@
             </div>
         </div>
     </div>
-
-    {{ script | safe }}
 </body>
 
-    <script type="text/javascript">
-        $(function() {
-            var pieChart=echarts.init(document.getElementById('pieChart'));
-            option={
-                series: [
-                    {
-                        type: 'pie',
-                        radius: ['60%', '90%'],
-                        avoidLabelOverlap: false,
-                        stillShowZeroSum: false,
-                        label: {
-                            show: false,
-                            position: 'center',
-                            emphasis: {
-                            show: true
-                            }
-                        },
-                        labelLine: {
-                            show: false
-                        },
+<script type="text/javascript">
+    $(function() {
+        var pieChart=echarts.init(document.getElementById('pieChart'));
+        option={
+            series: [
+                {
+                    type: 'pie',
+                    radius: ['60%', '90%'],
+                    avoidLabelOverlap: false,
+                    stillShowZeroSum: false,
+                    label: {
+                        show: false,
+                        position: 'center',
                         emphasis: {
-                            label: {
-                            show: true,
-                            fontSize: '45',
-                            fontWeight: 'bold'
+                        show: true
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    emphasis: {
+                        label: {
+                        show: true,
+                        fontSize: '45',
+                        fontWeight: 'bold'
+                        }
+                    },
+                    data: [
+                        {value:{{unfinished}}, name: 'Unfinished tasks'},
+                        {value:{{finished}}, name: 'Finished tasks'}
+                    ],
+                }
+            ]
+        };
+
+        pieChart.setOption(option);
+    });
+
+    $(function() {
+        const upColor = '#ec0000';
+        const upBorderColor = '#8A0000';
+        const downColor = '#00da3c';
+        const downBorderColor = '#008F28';
+
+        const categoryData = {{categoryData|safe}};
+        const values = splitData({{values}});
+
+        function splitData(rawData) {
+            const values = [];
+            for(var i=0;i<rawData.length;i+=5){
+                const tmp = [];
+                for(var j=0;j<5;j++){
+                    tmp.push(rawData[i+j])
+                }
+                values.push(tmp);
+            }
+            return values;
+        }
+
+        function calculateMA(dayCount) {
+            var result = [];
+            for (var i = 0, len = values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += +values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+
+        var plot=echarts.init(document.getElementById('sp500_plot'));
+        option={
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'cross'
+                }
+            },
+            legend: {
+                data: ['Daily K-line', 'MA5', 'MA10', 'MA20']
+            },
+            grid: {
+                left: '7%',
+                right: '7%',
+                bottom: '15%',
+                top: '10%'
+            },
+            xAxis: {
+                type: 'category',
+                data: categoryData,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: false },
+                min: 'dataMin',
+                max: 'dataMax'
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                show: true
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 50,
+                    end: 100
+                },
+                {
+                    show: true,
+                    type: 'slider',
+                    top: '90%',
+                    start: 50,
+                    end: 100
+                }
+            ],
+            series: [
+                {
+                    name: 'Daily K-line',
+                    type: 'candlestick',
+                    data: values,
+                    itemStyle: {
+                        color: upColor,
+                        color0: downColor,
+                        borderColor: upBorderColor,
+                        borderColor0: downBorderColor
+                    },
+                    markPoint: {
+                        label: {
+                            formatter: function (param) {
+                                return param != null ? Math.round(param.value) + '' : '';
                             }
                         },
                         data: [
-                            {value:{{unfinished}}, name: 'Unfinished tasks'},
-                            {value:{{finished}}, name: 'Finished tasks'}
+                            {
+                                name: 'highest value',
+                                type: 'max',
+                                valueDim: 'highest'
+                            },
+                            {
+                                name: 'lowest value',
+                                type: 'min',
+                                valueDim: 'lowest'
+                            },
+                            {
+                                name: 'average value on close',
+                                type: 'average',
+                                valueDim: 'close'
+                            }
                         ],
+                        tooltip: {
+                            formatter: function (param) {
+                                return param.name + '<br>' + (param.data.coord || '');
+                            }
+                        }
+                    },
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        data: [
+                            [
+                                {
+                                    name: 'from lowest to highest',
+                                    type: 'min',
+                                    valueDim: 'lowest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                },
+                                {
+                                    type: 'max',
+                                    valueDim: 'highest',
+                                    symbol: 'circle',
+                                    symbolSize: 10,
+                                    label: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: false
+                                        }
+                                    }
+                                }
+                            ],
+                            {
+                                name: 'min line on close',
+                                type: 'min',
+                                valueDim: 'close'
+                            },
+                            {
+                                name: 'max line on close',
+                                type: 'max',
+                                valueDim: 'close'
+                            }
+                        ]
                     }
-                ]
-            };
-
-            pieChart.setOption(option);
-        });
-    </script>
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(5),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(10),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+                {
+                    name: 'MA20',
+                    type: 'line',
+                    data: calculateMA(20),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5
+                    }
+                },
+            ]
+        };
+        plot.setOption(option);
+    });
+</script>
 
 </html>

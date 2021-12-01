@@ -1,9 +1,6 @@
-import calendar
-from datetime import date, datetime, timedelta
-from pandas.core.tools import datetimes
+from datetime import date
 import requests
-import pandas as pd
-from calendar import HTMLCalendar
+import yfinance as yf
 
 
 def this_month():
@@ -16,45 +13,38 @@ def this_year():
     return today.strftime('%Y')
 
 
-def request_selected_symbol(selected_symbol):
-    """
-    Return the selected historical price data.
-    """
-    apikey = "H1P717SYTFDWWWBK"
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + \
-        selected_symbol+'&apikey='+apikey
-    r = requests.get(url)
-    data = r.json()
+def request_selected_symbol(selected_symbol, inr="1d"):
+    s = yf.Ticker(selected_symbol)
 
-    df = pd.DataFrame.from_dict(
-        data['Time Series (Daily)'], orient='index').reset_index()
-    df = df.rename(columns={'index': 'date', '1. open': 'open', '2. high': 'high', '3. low': 'low', '4. close': 'close',
-                            '5. adjusted close': 'adjusted close', '6. volume': 'volume', '7. dividend amount': 'dividend amount', '8. split coefficient': 'split coefficient'})
-    df['date'] = pd.to_datetime(df['date'])
-    df = df.sort_values(by=['date'])
-    df.open = df.open.astype(float)
-    df.close = df.close.astype(float)
-    df.high = df.high.astype(float)
-    df.low = df.low.astype(float)
+    if inr == "1d" or inr == "1day":
+        inr = "1d"
+        pd = "3mo"
+        dt_format = '%y/%m/%d'
+    elif inr == "1h" or inr == "1hour":
+        inr = "1h"
+        pd = "1mo"
+        dt_format = '%m/%d %H'
+    elif inr == "5m" or inr == "5mins":
+        inr = "5m"
+        pd = "5d"
+        dt_format = '%m/%d %H:%M'
+    elif inr == "1m" or inr == "1min":
+        inr = "1m"
+        pd = "1d"
+        dt_format = '%m/%d %H:%M'
 
-    return df
+    s_historical = s.history(period=pd, interval=inr, actions=False).reindex(
+        columns=['Open', 'Close', 'Low', 'High'])
+    categoryData = []
+    values = []
+    for index, data in s_historical.iterrows():
+        categoryData.append(index.strftime(dt_format))
+        values.extend(data.values)
 
+    last_high = round(s_historical.iloc[-1]['High'], 2)
+    last_close = round(s_historical.iloc[-1]['Close'], 2)
 
-def request_selected_sma(selected_symbol):
-    apikey = "H1P717SYTFDWWWBK"
-    url = 'https://www.alphavantage.co/query?function=SMA&symbol='+selected_symbol + \
-        '&interval=daily&time_period=10&series_type=close&apikey='+apikey
-    r = requests.get(url)
-    data = r.json()
-
-    df = pd.DataFrame.from_dict(
-        data['Technical Analysis: SMA'], orient='index').reset_index()
-    df = df.rename(columns={'index': 'date'})
-    df['date'] = pd.to_datetime(df['date'])
-    df = df.sort_values(by=['date'])
-    df.SMA = df.SMA.astype(float)
-
-    return df
+    return categoryData, values, last_high, last_close
 
 
 def request_selected_news(keyword):
@@ -62,27 +52,8 @@ def request_selected_news(keyword):
     """
     url = ('https://newsapi.org/v2/everything?'
            'q='+keyword+'&'
-           'sortBy=publishedAt&'
-           'apiKey=6e63bd2af1fb4b5b9df13be0810cb70f')
+           'sortBy=publishedAt&apiKey=6e63bd2af1fb4b5b9df13be0810cb70f&language=en')
     r = requests.get(url)
     news = r.json()
 
     return news
-
-
-def get_n_days_SMA_data(selected_symbol, n):
-    """
-    Return the n-days SMA data
-    """
-    apikey = "H1P717SYTFDWWWBK"
-    url = 'https://www.alphavantage.co/query?function=SMA&symbol=' +\
-        selected_symbol + '&interval=daily&time_period=' + \
-        str(n)+'&series_type=open&apikey='+apikey
-    r = requests.get(url)
-    data = r.json()
-    df = pd.DataFrame.from_dict(
-        data['Technical Analysis: SMA'], orient='index').reset_index()
-    df.SMA = df.SMA.astype(float)
-    df = df.rename(columns={'index': 'date', 'SMA': 'SMA_'+str(n)})
-    df['date'] = pd.to_datetime(df['date'])
-    return df
